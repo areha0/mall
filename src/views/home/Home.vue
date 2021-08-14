@@ -8,10 +8,24 @@
 
 <script>
 import NavBar from "components/commen/navbar/NavBar";
+import { homeMultidata } from "network/home";
 export default {
   name: "WorkspaceJsonHome",
+  data() {
+    return {
+      banner: [],
+      recommend: []
+    };
+  },
   components: {
     NavBar
+  },
+  created() {
+    homeMultidata().then(res => {
+      // console.log(res);
+      this.banner = res.data.data.banner.list;
+      this.recommend = res.data.data.recommend.list;
+    });
   }
 };
 </script>
