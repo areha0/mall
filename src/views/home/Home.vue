@@ -4,14 +4,17 @@
       <div slot="center">购物街</div>
     </nav-bar>
     <home-swiper :banner="banner"></home-swiper>
+    <home-recommend :recommend="recommend"></home-recommend>
   </div>
 </template>
 
 <script>
 import NavBar from "components/commen/navbar/NavBar";
 import HomeSwiper from "./homechildren/HomeSwiper";
+import HomeRecommend from "./homechildren/HomeRecommend";
 
 import { homeMultidata } from "network/home";
+import HomeRecommendVue from "./homechildren/HomeRecommend.vue";
 export default {
   name: "WorkspaceJsonHome",
   data() {
@@ -23,6 +26,7 @@ export default {
   components: {
     NavBar,
     HomeSwiper,
+    HomeRecommend,
   },
   created() {
     homeMultidata().then((res) => {
