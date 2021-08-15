@@ -3,30 +3,35 @@
     <nav-bar class="home-nav">
       <div slot="center">购物街</div>
     </nav-bar>
+    <home-swiper :banner="banner"></home-swiper>
   </div>
 </template>
 
 <script>
 import NavBar from "components/commen/navbar/NavBar";
+import HomeSwiper from "./homechildren/HomeSwiper";
+
 import { homeMultidata } from "network/home";
 export default {
   name: "WorkspaceJsonHome",
   data() {
     return {
       banner: [],
-      recommend: []
+      recommend: [],
     };
   },
   components: {
-    NavBar
+    NavBar,
+    HomeSwiper,
   },
   created() {
-    homeMultidata().then(res => {
+    homeMultidata().then((res) => {
       // console.log(res);
       this.banner = res.data.data.banner.list;
+      // console.log(this.banner);
       this.recommend = res.data.data.recommend.list;
     });
-  }
+  },
 };
 </script>
 
