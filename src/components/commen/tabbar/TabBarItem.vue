@@ -65,10 +65,10 @@ export default {
 .tab-bar-items p {
   padding: 0;
   margin: 0;
-  font-size: 15px;
+  font-size: 14px;
 }
 div.item-active i,
 div.item-active p {
-  color: pink;
+  color: rgb(247, 150, 166);
 }
 </style>

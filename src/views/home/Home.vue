@@ -6,7 +6,33 @@
     <home-swiper :banner="banner"></home-swiper>
     <home-recommend :recommend="recommend"></home-recommend>
     <home-feature></home-feature>
+    <tab-control :tabtitle="['流行', '新款', '精选']"></tab-control>
+
     <ul>
+      <li>liebiao</li>
+      <li>liebiao</li>
+      <li>liebiao</li>
+      <li>liebiao</li>
+      <li>liebiao</li>
+      <li>liebiao</li>
+      <li>liebiao</li>
+      <li>liebiao</li>
+      <li>liebiao</li>
+      <li>liebiao</li>
+      <li>liebiao</li>
+      <li>liebiao</li>
+      <li>liebiao</li>
+      <li>liebiao</li>
+      <li>liebiao</li>
+      <li>liebiao</li>
+      <li>liebiao</li>
+      <li>liebiao</li>
+      <li>liebiao</li>
+      <li>liebiao</li>
+      <li>liebiao</li>
+      <li>liebiao</li>
+      <li>liebiao</li>
+      <li>liebiao</li>
       <li>liebiao</li>
       <li>liebiao</li>
       <li>liebiao</li>
@@ -26,9 +52,9 @@ import NavBar from "components/commen/navbar/NavBar";
 import HomeSwiper from "./homechildren/HomeSwiper";
 import HomeRecommend from "./homechildren/HomeRecommend";
 import HomeFeature from "./homechildren/HomeFeature";
+import TabControl from "components/content/tabcontrol/TabControl";
 
 import { homeMultidata } from "network/home";
-import HomeRecommendVue from "./homechildren/HomeRecommend.vue";
 export default {
   name: "WorkspaceJsonHome",
   data() {
@@ -42,6 +68,7 @@ export default {
     HomeSwiper,
     HomeRecommend,
     HomeFeature,
+    TabControl,
   },
   created() {
     homeMultidata().then((res) => {
@@ -59,7 +86,7 @@ export default {
   padding: 44px 0 50px;
 }
 .home-nav {
-  background-color: Pink;
+  background-color: rgb(247, 150, 166);
   color: #ffffff;
   font-size: 18px;
   position: fixed;
