@@ -1,18 +1,14 @@
 @import url("./normalize");
 @import url("./icomoon/style");
 
-html{
-    height: 100%;
-}
+
 body{
     padding: 0;
     margin: 0;
     max-width: 540px;
     min-width: 320px;
-    height: 100%;
+    /* height: 100%; */
     margin: 0 auto;
-    overflow: hidden;
-    /* background-color: rgb(250, 250, 250); */
     background-color: #fff;
 }
 .main-flow {
