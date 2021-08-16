@@ -37,11 +37,11 @@ export default {
 .goods-arrage img {
   width: 100%;
   border-radius: 10px;
-  margin-bottom: 4px;
+  margin-bottom: 8px;
 }
 .goods-arrage p {
   width: 100%;
-  font-size: 13px;
+  font-size: 11px;
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
@@ -54,12 +54,12 @@ export default {
   margin-top: 2px;
 }
 .price {
-  font-size: 13px;
+  font-size: 12px;
   color: rgb(247, 150, 166);
   margin-right: 10px;
 }
 .collect {
-  font-size: 13px;
+  font-size: 12px;
 }
 .collect::before {
   content: "\eafb";

@@ -2,7 +2,7 @@
   <div class="goodslist">
     <goods-list-item
       class="good-list-item"
-      v-for="(item, index) in popgoods"
+      v-for="(item, index) in goods"
       :key="index"
       :item="item"
     ></goods-list-item>
@@ -14,7 +14,7 @@ import GoodsListItem from "./GoodsListItem";
 export default {
   name: "GoodsList",
   props: {
-    popgoods: {
+    goods: {
       type: Array,
     },
   },

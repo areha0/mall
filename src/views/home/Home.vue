@@ -6,45 +6,11 @@
     <home-swiper :banner="banner"></home-swiper>
     <home-recommend :recommend="recommend"></home-recommend>
     <home-feature></home-feature>
-    <tab-control :tabtitle="['流行', '新款', '精选']"></tab-control>
-    <goods-list :popgoods="goods.pop.list"></goods-list>
-
-    <ul>
-      <li>liebiao</li>
-      <li>liebiao</li>
-      <li>liebiao</li>
-      <li>liebiao</li>
-      <li>liebiao</li>
-      <li>liebiao</li>
-      <li>liebiao</li>
-      <li>liebiao</li>
-      <li>liebiao</li>
-      <li>liebiao</li>
-      <li>liebiao</li>
-      <li>liebiao</li>
-      <li>liebiao</li>
-      <li>liebiao</li>
-      <li>liebiao</li>
-      <li>liebiao</li>
-      <li>liebiao</li>
-      <li>liebiao</li>
-      <li>liebiao</li>
-      <li>liebiao</li>
-      <li>liebiao</li>
-      <li>liebiao</li>
-      <li>liebiao</li>
-      <li>liebiao</li>
-      <li>liebiao</li>
-      <li>liebiao</li>
-      <li>liebiao</li>
-      <li>liebiao</li>
-      <li>liebiao</li>
-      <li>liebiao</li>
-      <li>liebiao</li>
-      <li>liebiao</li>
-      <li>liebiao</li>
-      <li>liebiao</li>
-    </ul>
+    <tab-control
+      :tabtitle="['流行', '新款', '精选']"
+      @tabClick="tabClick"
+    ></tab-control>
+    <goods-list :goods="goods[currentType].list"></goods-list>
   </div>
 </template>
 
@@ -68,6 +34,7 @@ export default {
         new: { page: 0, list: [] },
         sell: { page: 0, list: [] },
       },
+      currentType: "pop",
     };
   },
   components: {
@@ -85,6 +52,26 @@ export default {
     this.getHomegoods("new");
   },
   methods: {
+    /**
+     * 事件监听相关方法
+     */
+    tabClick(index) {
+      switch (index) {
+        case 0:
+          this.currentType = "pop";
+          break;
+        case 1:
+          this.currentType = "new";
+          break;
+        case 2:
+          this.currentType = "sell";
+          break;
+      }
+    },
+
+    /**
+     * 网络请求相关方法
+     */
     // 获取首页轮播图数据
     getHomeMultidata() {
       homeMultidata().then((res) => {
