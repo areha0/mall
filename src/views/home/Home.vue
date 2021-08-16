@@ -7,6 +7,7 @@
     <home-recommend :recommend="recommend"></home-recommend>
     <home-feature></home-feature>
     <tab-control :tabtitle="['流行', '新款', '精选']"></tab-control>
+    <goods-list :popgoods="goods.pop.list"></goods-list>
 
     <ul>
       <li>liebiao</li>
@@ -53,14 +54,20 @@ import HomeSwiper from "./homechildren/HomeSwiper";
 import HomeRecommend from "./homechildren/HomeRecommend";
 import HomeFeature from "./homechildren/HomeFeature";
 import TabControl from "components/content/tabcontrol/TabControl";
+import GoodsList from "components/content/goodslist/GoodsList";
 
-import { homeMultidata } from "network/home";
+import { homeMultidata, homegoods } from "network/home";
 export default {
   name: "WorkspaceJsonHome",
   data() {
     return {
       banner: [],
       recommend: [],
+      goods: {
+        pop: { page: 0, list: [] },
+        new: { page: 0, list: [] },
+        sell: { page: 0, list: [] },
+      },
     };
   },
   components: {
@@ -69,14 +76,33 @@ export default {
     HomeRecommend,
     HomeFeature,
     TabControl,
+    GoodsList,
   },
   created() {
-    homeMultidata().then((res) => {
-      // console.log(res);
-      this.banner = res.data.data.banner.list;
-      // console.log(this.banner);
-      this.recommend = res.data.data.recommend.list;
-    });
+    this.getHomeMultidata();
+    this.getHomegoods("pop");
+    this.getHomegoods("sell");
+    this.getHomegoods("new");
+  },
+  methods: {
+    // 获取首页轮播图数据
+    getHomeMultidata() {
+      homeMultidata().then((res) => {
+        // console.log(res);
+        this.banner = res.data.data.banner.list;
+        // console.log(this.banner);
+        this.recommend = res.data.data.recommend.list;
+      });
+    },
+    // 获取首页商品数据
+    getHomegoods(type) {
+      let page = this.goods[type].page + 1;
+      homegoods(type, page).then((res) => {
+        // console.log(res.data.data.list);
+        this.goods[type].list.push(...res.data.data.list);
+      });
+      this.goods[type].page++;
+    },
   },
 };
 </script>
