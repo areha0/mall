@@ -29,8 +29,8 @@ export default {
 
   components: {
     TabBar,
-    TabBarItem
-  }
+    TabBarItem,
+  },
 };
 </script>
 

@@ -3,14 +3,20 @@
     <nav-bar class="home-nav main-flow">
       <div slot="center">购物街</div>
     </nav-bar>
-    <home-swiper :banner="banner"></home-swiper>
-    <home-recommend :recommend="recommend"></home-recommend>
-    <home-feature></home-feature>
-    <tab-control
-      :tabtitle="['流行', '新款', '精选']"
-      @tabClick="tabClick"
-    ></tab-control>
-    <goods-list :goods="goods[currentType].list"></goods-list>
+
+    <scroll class="wrapper" ref="scroll" @onScroll="onScroll">
+      <home-swiper :banner="banner"></home-swiper>
+      <home-recommend :recommend="recommend"></home-recommend>
+      <home-feature></home-feature>
+      <tab-control
+        :tabtitle="['流行', '新款', '精选']"
+        @tabClick="tabClick"
+      ></tab-control>
+      <goods-list :goods="goods[currentType].list" :key="currentType">
+      </goods-list>
+    </scroll>
+
+    <back-top @click.native="backTopClick" v-show="isShowBackTop"></back-top>
   </div>
 </template>
 
@@ -21,6 +27,8 @@ import HomeRecommend from "./homechildren/HomeRecommend";
 import HomeFeature from "./homechildren/HomeFeature";
 import TabControl from "components/content/tabcontrol/TabControl";
 import GoodsList from "components/content/goodslist/GoodsList";
+import Scroll from "components/commen/scroll/Scroll";
+import BackTop from "../../components/commen/backtop/BackTop";
 
 import { homeMultidata, homegoods } from "network/home";
 export default {
@@ -35,6 +43,7 @@ export default {
         sell: { page: 0, list: [] },
       },
       currentType: "pop",
+      isShowBackTop: false,
     };
   },
   components: {
@@ -44,6 +53,8 @@ export default {
     HomeFeature,
     TabControl,
     GoodsList,
+    Scroll,
+    BackTop,
   },
   created() {
     this.getHomeMultidata();
@@ -67,6 +78,16 @@ export default {
           this.currentType = "sell";
           break;
       }
+    },
+
+    backTopClick() {
+      // 监听backTo按钮的点击, 然后调用子组件Scroll中的scrollTo()方法, 将坐标调至 (0,0) 点
+      // console.log("可以听见吗");
+      // console.log(this.$refs.scroll.message);
+      this.$refs.scroll.myScrollTo(0, 0, 500);
+    },
+    onScroll(position) {
+      this.isShowBackTop = Math.abs(position.y) > 1200;
     },
 
     /**
@@ -96,7 +117,9 @@ export default {
 
 <style scoped>
 #home {
-  padding: 44px 0 50px;
+  /* padding: 44px 0 50px; */
+  position: relative;
+  height: 100vh;
 }
 .home-nav {
   background-color: rgb(247, 150, 166);
@@ -107,5 +130,16 @@ export default {
   left: 0;
   right: 0;
   z-index: 9;
+}
+.wrapper {
+  /* height: 540px; */
+
+  overflow: hidden;
+  /* background-color: pink; */
+  position: absolute;
+  top: 44px;
+  right: 0;
+  left: 0;
+  bottom: 50px;
 }
 </style>

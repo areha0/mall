@@ -36,7 +36,7 @@ export default {
 
 .goods-arrage img {
   width: 100%;
-  border-radius: 10px;
+  border-radius: 14px;
   margin-bottom: 8px;
 }
 .goods-arrage p {

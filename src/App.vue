@@ -10,8 +10,8 @@ import MainTabBar from "components/content/MainTabBar";
 export default {
   name: "App",
   components: {
-    MainTabBar
-  }
+    MainTabBar,
+  },
 };
 </script>
 
