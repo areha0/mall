@@ -1,10 +1,12 @@
 <template>
   <div>
-    <swiper ref="swiper">
-      <swiper-item v-for="(item, index) in banner" :key="index">
-        <a :href="item.link" :title="item.title">
-          <img :src="item.image" alt="" @load="imgLoad" />
-        </a>
+    <swiper ref="swiper" class="detail-swiper">
+      <swiper-item
+        v-for="(item, index) in topImage"
+        :key="index"
+        class="detail-swiper-img"
+      >
+        <img :src="item" alt="" @load="imgLoad" />
       </swiper-item>
     </swiper>
   </div>
@@ -15,33 +17,36 @@ import Swiper from "components/commen/swiper/Swiper";
 import SwiperItem from "components/commen/swiper/SwiperItem";
 
 export default {
-  name: "HomeSwiper",
+  name: "DetailSwiper",
   components: {
     Swiper,
     SwiperItem,
   },
-  data() {
-    return {
-      isImgLoad: false,
-      totleImgLoad: 0,
-    };
-  },
   props: {
-    banner: {
+    topImage: {
       type: Array,
     },
   },
+  data() {
+    return {
+      isImgLoad: false,
+    };
+  },
   methods: {
     imgLoad() {
-      // console.log("图片加载完毕");
       if (!this.isImgLoad) {
-        this.$emit("SwiperImgLoad");
+        console.log("nihaoa");
         this.$refs.swiper.swiperRun();
       }
       this.isImgLoad = true;
     },
   },
 };
-</script>  
+</script>
+
 <style scoped>
+.detail-swiper {
+  height: 300px;
+  overflow: hidden;
+}
 </style>

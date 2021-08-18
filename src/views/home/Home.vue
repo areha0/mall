@@ -1,8 +1,9 @@
 <template>
   <div id="home">
     <nav-bar class="home-nav main-flow">
-      <div slot="center">购物街</div>
+      <div slot="center" class="home-nav-center">购物街</div>
     </nav-bar>
+
     <tab-control
       :tabtitle="['流行', '新款', '精选']"
       @tabClick="tabClick"
@@ -177,7 +178,6 @@ export default {
 
 <style scoped>
 #home {
-  /* padding: 44px 0 50px; */
   position: relative;
   height: 100vh;
 }
@@ -185,11 +185,10 @@ export default {
   background-color: rgb(247, 150, 166);
   color: #ffffff;
   font-size: 18px;
-  /* position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 9; */
+  line-height: 44px;
+}
+.home-nav-center {
+  text-align: center;
 }
 .tab-control-fixed {
   position: relative;

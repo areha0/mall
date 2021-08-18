@@ -1,12 +1,12 @@
 <template>
   <div class="nav-bar">
-    <div class="left">
+    <div class="slot-left">
       <slot name="left"></slot>
     </div>
-    <div class="center">
+    <div class="slot-center">
       <slot name="center"></slot>
     </div>
-    <div class="right">
+    <div class="slot-right">
       <slot name="right"></slot>
     </div>
   </div>
@@ -25,13 +25,11 @@ export default {
   line-height: 44px;
   text-align: center;
 }
-.left,
-.right {
+.slot-left,
+.slot-right {
   width: 50px;
-  /* background-color: #ff0000; */
 }
-.center {
+.slot-center {
   flex: 1;
-  /* background-color: pink; */
 }
 </style>
