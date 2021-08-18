@@ -27,7 +27,7 @@ export default {
 
     // 监听商品被点击
     goodsDetail() {
-      console.log(this.item.iid);
+      // console.log(this.item.iid);
       this.$router.push("/detail/" + this.item.iid);
     },
   },

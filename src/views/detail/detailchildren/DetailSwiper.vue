@@ -1,11 +1,7 @@
 <template>
   <div>
     <swiper ref="swiper" class="detail-swiper">
-      <swiper-item
-        v-for="(item, index) in topImage"
-        :key="index"
-        class="detail-swiper-img"
-      >
+      <swiper-item v-for="(item, index) in topImage" :key="index">
         <img :src="item" alt="" @load="imgLoad" />
       </swiper-item>
     </swiper>
@@ -35,7 +31,6 @@ export default {
   methods: {
     imgLoad() {
       if (!this.isImgLoad) {
-        console.log("nihaoa");
         this.$refs.swiper.swiperRun();
       }
       this.isImgLoad = true;
