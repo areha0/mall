@@ -39,8 +39,7 @@ export default {
   display: flex;
   text-align: center;
   font-size: 15px;
-  position: sticky;
-  top: 44px;
+
   height: 40px;
   line-height: 40px;
   background-color: #fff;

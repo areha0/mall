@@ -3,6 +3,13 @@
     <nav-bar class="home-nav main-flow">
       <div slot="center">购物街</div>
     </nav-bar>
+    <tab-control
+      :tabtitle="['流行', '新款', '精选']"
+      @tabClick="tabClick"
+      ref="FixedtabControl"
+      class="tab-control-fixed"
+      v-show="isTabControlFixed"
+    ></tab-control>
 
     <scroll
       class="wrapper"
@@ -11,12 +18,16 @@
       :myPullUpLoad="true"
       @pullingUp="pullingUp"
     >
-      <home-swiper :banner="banner"></home-swiper>
+      <home-swiper
+        :banner="banner"
+        @SwiperImgLoad="SwiperImgLoad"
+      ></home-swiper>
       <home-recommend :recommend="recommend"></home-recommend>
       <home-feature></home-feature>
       <tab-control
         :tabtitle="['流行', '新款', '精选']"
         @tabClick="tabClick"
+        ref="tabControl"
       ></tab-control>
       <goods-list :goods="goods[currentType].list" :key="currentType">
       </goods-list>
@@ -50,6 +61,8 @@ export default {
       },
       currentType: "pop",
       isShowBackTop: false,
+      tabContrlTop: 0,
+      isTabControlFixed: false,
     };
   },
   components: {
@@ -69,6 +82,7 @@ export default {
     this.getHomegoods("new");
   },
   mounted() {
+    // 更新better-scroll
     const refresh = this.debounce(this.$refs.scroll.myScrollRefresh, 200);
     this.$bus.$on("itemImageLoad", () => {
       // this.$refs.scroll.myScrollRefresh();
@@ -92,6 +106,8 @@ export default {
           this.currentType = "sell";
           break;
       }
+      this.$refs.FixedtabControl.activeIndex = index;
+      this.$refs.tabControl.activeIndex = index;
     },
 
     backTopClick() {
@@ -102,18 +118,26 @@ export default {
     },
     // 监听滚动
     onScroll(position) {
+      // 判断是否显示回到顶部控件
       this.isShowBackTop = Math.abs(position.y) > 1200;
+      // 判断tab-control是否吸顶
+      this.isTabControlFixed =
+        Math.abs(position.y) > Math.abs(this.tabContrlTop);
     },
     // 监听上啦更新
     pullingUp() {
       // console.log(this.currentType);
       this.getHomegoods(this.currentType);
     },
+    // 监听轮播图片是否加载完成
+    SwiperImgLoad() {
+      // 2.测量tab-control距离父元素的高度, 由于拿到的是一个组件, 所以并没有offsetTop属性, 所以需要使用属性$el
+      this.tabContrlTop = this.$refs.tabControl.$el.offsetTop;
+    },
 
     // better-scroll更新refresh()方法的防抖动操作封装
     debounce(func, delay) {
       let timer = null;
-
       return function () {
         if (timer) clearInterval(timer);
         timer = setTimeout(() => {
@@ -161,17 +185,17 @@ export default {
   background-color: rgb(247, 150, 166);
   color: #ffffff;
   font-size: 18px;
-  position: fixed;
+  /* position: fixed;
   top: 0;
   left: 0;
   right: 0;
-  z-index: 9;
+  z-index: 9; */
+}
+.tab-control-fixed {
+  position: relative;
 }
 .wrapper {
-  /* height: 540px; */
-
   overflow: hidden;
-  /* background-color: pink; */
   position: absolute;
   top: 44px;
   right: 0;
