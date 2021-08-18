@@ -14,7 +14,7 @@
 
 <script>
 export default {
-  name: "WorkspaceJsonNavbar"
+  name: "Navbar",
 };
 </script>
 

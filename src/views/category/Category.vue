@@ -6,7 +6,7 @@
 
 <script>
 export default {
-  name: "WorkspaceJsonCategory",
+  name: "Category",
 
   components: {},
 
@@ -18,7 +18,7 @@ export default {
 
   mounted() {},
 
-  methods: {}
+  methods: {},
 };
 </script>
 

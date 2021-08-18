@@ -165,12 +165,10 @@ export default {
       // 开启定时器
       this.startTimer();
     },
-  },
-  created() {
-    setTimeout(() => {
+    swiperRun() {
       this.startTimer();
       this.handleDom();
-    }, 3000);
+    },
   },
 };
 </script>

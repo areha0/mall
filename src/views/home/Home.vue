@@ -49,7 +49,7 @@ import BackTop from "../../components/commen/backtop/BackTop";
 
 import { homeMultidata, homegoods } from "network/home";
 export default {
-  name: "WorkspaceJsonHome",
+  name: "Home",
   data() {
     return {
       banner: [],

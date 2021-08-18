@@ -1,5 +1,5 @@
 <template>
-  <div class="goods-arrage">
+  <div class="goods-arrage" @click="goodsDetail">
     <img :src="item.show.img" alt="" :title="item.title" @load="imgLoad" />
     <div>
       <p :title="item.title">{{ item.title }}</p>
@@ -23,6 +23,12 @@ export default {
     imgLoad() {
       // 事件总线
       this.$bus.$emit("itemImageLoad");
+    },
+
+    // 监听商品被点击
+    goodsDetail() {
+      console.log(this.item.iid);
+      this.$router.push("/detail/" + this.item.iid);
     },
   },
   filters: {

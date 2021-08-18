@@ -6,7 +6,7 @@
 
 <script>
 export default {
-  name: "WorkspaceJsonTabbar",
+  name: "Tabbar",
 
   components: {},
 

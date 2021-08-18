@@ -1,6 +1,6 @@
 <template>
   <div>
-    <swiper>
+    <swiper ref="swiper">
       <swiper-item v-for="(item, index) in banner" :key="index">
         <a :href="item.link" :title="item.title">
           <img :src="item.image" alt="" @load="imgLoad" />
@@ -19,7 +19,12 @@ export default {
   components: {
     Swiper,
     SwiperItem,
-    isImgLoad: false,
+  },
+  data() {
+    return {
+      isImgLoad: false,
+      totleImgLoad: 0,
+    };
   },
   props: {
     banner: {
@@ -29,12 +34,15 @@ export default {
   methods: {
     imgLoad() {
       // console.log("图片加载完毕");
-      if (!this.isImgLoad) this.$emit("SwiperImgLoad");
+      if (!this.isImgLoad) {
+        this.$emit("SwiperImgLoad");
+        this.$refs.swiper.swiperRun();
+      }
       this.isImgLoad = !this.isImgsLoad;
     },
   },
 };
-</script>
+</script>  
 <style scoped>
 .slide {
   width: 100%;

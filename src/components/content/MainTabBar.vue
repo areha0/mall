@@ -25,7 +25,7 @@
 import TabBar from "components/commen/tabbar/TabBar";
 import TabBarItem from "components/commen/tabbar/TabBarItem";
 export default {
-  name: "WorkspaceJsonMaintabbar",
+  name: "Maintabbar",
 
   components: {
     TabBar,
