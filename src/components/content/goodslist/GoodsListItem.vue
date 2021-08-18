@@ -1,6 +1,6 @@
 <template>
   <div class="goods-arrage">
-    <img :src="item.show.img" alt="" :title="item.title" />
+    <img :src="item.show.img" alt="" :title="item.title" @load="imgLoad" />
     <div>
       <p :title="item.title">{{ item.title }}</p>
       <div class="item-infor">
@@ -17,6 +17,12 @@ export default {
   props: {
     item: {
       type: Object,
+    },
+  },
+  methods: {
+    imgLoad() {
+      // 事件总线
+      this.$bus.$emit("itemImageLoad");
     },
   },
   filters: {

@@ -21,26 +21,43 @@ export default {
       type: Number,
       default: 0,
     },
+    myPullUpLoad: {
+      type: Boolean,
+      default: false,
+    },
   },
   mounted() {
-    setTimeout(() => {
-      this.scroll = new BScroll(this.$refs.wrapper, {
-        // probeType: this.myProbType,
-        // probeType: 0,
-        pullUpLoad: true,
-        startY: true,
-        click: true,
-      });
-      console.log(this.scroll);
-      this.scroll.on("scroll", (position) => {
-        // console.log(position);
-        this.$emit("onScroll", position);
-      });
-    }, 1000);
+    this.scroll = new BScroll(this.$refs.wrapper, {
+      // probeType: this.myProbType,
+      probeType: 3,
+      pullUpLoad: this.myPullUpLoad,
+      startY: true,
+      click: true,
+    });
+    // console.log(this.scroll);
+    // 监测滚动
+    this.scroll.on("scroll", (position) => {
+      // console.log(position);
+      this.$emit("onScroll", position);
+    });
+    // 监测下拉更新
+    this.scroll.on("pullingUp", () => {
+      // console.log("下拉更新");
+      this.$emit("pullingUp");
+    });
   },
+
   methods: {
     myScrollTo(positionX, positionY, duration) {
-      this.scroll.scrollTo(positionX, positionY, duration);
+      this.scroll && this.scroll.scrollTo(positionX, positionY, duration);
+    },
+    myPullingFinish() {
+      this.scroll && this.scroll.finishPullUp();
+    },
+    myScrollRefresh() {
+      // console.log(this.scroll.refresh);
+      this.scroll && this.scroll.refresh();
+      // console.log("nihaoa");
     },
   },
 };

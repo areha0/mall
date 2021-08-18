@@ -4,7 +4,13 @@
       <div slot="center">购物街</div>
     </nav-bar>
 
-    <scroll class="wrapper" ref="scroll" @onScroll="onScroll">
+    <scroll
+      class="wrapper"
+      ref="scroll"
+      @onScroll="onScroll"
+      :myPullUpLoad="true"
+      @pullingUp="pullingUp"
+    >
       <home-swiper :banner="banner"></home-swiper>
       <home-recommend :recommend="recommend"></home-recommend>
       <home-feature></home-feature>
@@ -62,6 +68,14 @@ export default {
     this.getHomegoods("sell");
     this.getHomegoods("new");
   },
+  mounted() {
+    const refresh = this.debounce(this.$refs.scroll.myScrollRefresh, 200);
+    this.$bus.$on("itemImageLoad", () => {
+      // this.$refs.scroll.myScrollRefresh();
+      refresh();
+    });
+  },
+
   methods: {
     /**
      * 事件监听相关方法
@@ -86,8 +100,26 @@ export default {
       // console.log(this.$refs.scroll.message);
       this.$refs.scroll.myScrollTo(0, 0, 500);
     },
+    // 监听滚动
     onScroll(position) {
       this.isShowBackTop = Math.abs(position.y) > 1200;
+    },
+    // 监听上啦更新
+    pullingUp() {
+      // console.log(this.currentType);
+      this.getHomegoods(this.currentType);
+    },
+
+    // better-scroll更新refresh()方法的防抖动操作封装
+    debounce(func, delay) {
+      let timer = null;
+
+      return function () {
+        if (timer) clearInterval(timer);
+        timer = setTimeout(() => {
+          func.apply(this);
+        }, delay);
+      };
     },
 
     /**
@@ -110,6 +142,10 @@ export default {
         this.goods[type].list.push(...res.data.data.list);
       });
       this.goods[type].page++;
+      // 下拉刷新结束
+      setTimeout(() => {
+        this.$refs.scroll.myPullingFinish();
+      }, 2000);
     },
   },
 };
