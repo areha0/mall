@@ -1,6 +1,6 @@
 <template>
-  <div id="detail">
-    <main-nav-bar></main-nav-bar>
+  <div id="detail" class="main-flow">
+    <main-nav-bar class="detail-navbar"></main-nav-bar>
 
     <scroll ref="detailScroll">
       <detail-swiper
@@ -9,18 +9,10 @@
       ></detail-swiper>
       <detail-goods-info :goodsInfo="goodsInfo"></detail-goods-info>
       <detail-shop-info :shop="shop"></detail-shop-info>
-      <ul>
-        <li>nihao</li>
-        <li>nihao</li>
-        <li>nihao</li>
-        <li>nihao</li>
-        <li>nihao</li>
-        <li>nihao</li>
-        <li>nihao</li>
-        <li>nihao</li>
-        <li>nihao</li>
-        <li>nihao</li>
-      </ul>
+      <detail-particular-info
+        :particular="particular"
+        @particularImgLoad="particularImgLoad"
+      ></detail-particular-info>
     </scroll>
   </div>
 </template> 
@@ -31,8 +23,9 @@ import DetailSwiper from "./detailchildren/DetailSwiper";
 import DetailGoodsInfo from "./detailchildren/DetailGoodsInfo";
 import DetailShopInfo from "./detailchildren/DetailShopInfo";
 import Scroll from "components/commen/scroll/Scroll";
+import DetailParticularInfo from "./detailchildren/DetailParticularInfo";
 
-import { detailData, GoodsInfo, Shop } from "../../network/detail";
+import { detailData, GoodsInfo, Shop, Particular } from "../../network/detail";
 
 export default {
   name: "Detail",
@@ -41,6 +34,8 @@ export default {
       topImage: [],
       goodsInfo: {},
       shop: {},
+      particular: {},
+      imgRefresh: null,
     };
   },
   components: {
@@ -49,12 +44,19 @@ export default {
     DetailGoodsInfo,
     DetailShopInfo,
     Scroll,
+    DetailParticularInfo,
   },
   created() {
     this.iid = this.$route.params.goodsid;
     // console.log(this.$route.params.goodsid);
 
     this.getDetailData(this.$route.params.goodsid);
+  },
+  mounted() {
+    this.imgRefresh = this.debounce(
+      this.$refs.detailScroll.myScrollRefresh,
+      200
+    );
   },
   methods: {
     /**
@@ -64,6 +66,22 @@ export default {
       // console.log("myScrollRefresh()");
       this.$refs.detailScroll.myScrollRefresh();
     },
+    particularImgLoad() {
+      this.imgRefresh();
+    },
+
+    /**
+     * 防抖函数
+     */
+    debounce(func, delay) {
+      let timer = null;
+      return function () {
+        if (timer) clearTimeout(timer);
+        timer = setTimeout(() => {
+          func.apply(this);
+        }, delay);
+      };
+    },
 
     /**
      * 获取数据
@@ -71,7 +89,7 @@ export default {
     getDetailData(id) {
       detailData(id).then((res) => {
         const detailAllData = res.data.result;
-        // console.log(detailAllData);
+        console.log(detailAllData);
         // 详情页轮播图数据
         this.topImage = detailAllData.itemInfo.topImages;
         // 详情页商品基本数据
@@ -82,6 +100,8 @@ export default {
         );
         // 详情页店铺信息
         this.shop = new Shop(detailAllData.shopInfo);
+        // 详情页详情信息
+        this.particular = new Particular(detailAllData.detailInfo);
       });
     },
   },
@@ -98,6 +118,11 @@ export default {
   height: 100vh;
 }
 /* 详情页面的scroll */
+.detail-navbar {
+  position: relative;
+  z-index: 10;
+  background-color: #fff;
+}
 .wrapper {
   height: calc(100% - 44px);
 }

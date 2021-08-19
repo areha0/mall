@@ -55,6 +55,8 @@ export default {
     totleSells(number) {
       if (number > 10000) {
         return parseFloat(number / 10000).toFixed(1) + "万";
+      } else {
+        return number;
       }
     },
   },
@@ -71,20 +73,20 @@ export default {
 /* 商铺logo和名字 */
 .shopName {
   display: flex;
-  height: 40px;
+  height: 60px;
   align-items: center;
 }
 .shopName img {
-  width: 30px;
-  height: 30px;
+  width: 40px;
+  height: 40px;
   border: 1px solid rgba(200, 200, 200, 0.3);
-  border-radius: 15px;
+  border-radius: 20px;
   margin-right: 5px;
 }
 .shopName span {
-  font-size: 14px;
-  height: 40px;
-  line-height: 40px;
+  font-size: 16px;
+  height: 60px;
+  line-height: 60px;
 }
 /* 商铺总销量, 全部宝贝和打分 */
 .all-info {

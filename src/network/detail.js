@@ -32,3 +32,10 @@ export class Shop {
         this.shopUrl = shopInfo.shopUrl
     }
 }
+
+export class Particular {
+    constructor(detailInfo) {
+        this.name = detailInfo.desc;
+        this.imgList = detailInfo.detailImage
+    }
+}
