@@ -41,10 +41,12 @@ export default {
       this.$emit("onScroll", position);
     });
     // 监测下拉更新
-    this.scroll.on("pullingUp", () => {
-      // console.log("下拉更新");
-      this.$emit("pullingUp");
-    });
+    if (this.myPullUpLoad) {
+      this.scroll.on("pullingUp", () => {
+        // console.log("下拉更新");
+        this.$emit("pullingUp");
+      });
+    }
   },
 
   methods: {

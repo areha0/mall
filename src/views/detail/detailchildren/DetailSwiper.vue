@@ -32,6 +32,7 @@ export default {
     imgLoad() {
       if (!this.isImgLoad) {
         this.$refs.swiper.swiperRun();
+        this.$emit("detailSwiperImgLoad");
       }
       this.isImgLoad = true;
     },
