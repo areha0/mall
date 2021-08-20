@@ -39,3 +39,11 @@ export class Particular {
         this.imgList = detailInfo.detailImage
     }
 }
+
+export class Params {
+    constructor(info, rule) {
+        this.table = rule.tables;
+        this.set = info.set;
+        this.image = info.images ? info.images[0] : ""
+    }
+}

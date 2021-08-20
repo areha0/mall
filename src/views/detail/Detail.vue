@@ -13,6 +13,7 @@
         :particular="particular"
         @particularImgLoad="particularImgLoad"
       ></detail-particular-info>
+      <detail-params-info :params="params"></detail-params-info>
     </scroll>
   </div>
 </template> 
@@ -24,8 +25,15 @@ import DetailGoodsInfo from "./detailchildren/DetailGoodsInfo";
 import DetailShopInfo from "./detailchildren/DetailShopInfo";
 import Scroll from "components/commen/scroll/Scroll";
 import DetailParticularInfo from "./detailchildren/DetailParticularInfo";
+import DetailParamsInfo from "./detailchildren/DetailParamsInfo";
 
-import { detailData, GoodsInfo, Shop, Particular } from "../../network/detail";
+import {
+  detailData,
+  GoodsInfo,
+  Shop,
+  Particular,
+  Params,
+} from "../../network/detail";
 
 export default {
   name: "Detail",
@@ -36,6 +44,7 @@ export default {
       shop: {},
       particular: {},
       imgRefresh: null,
+      params: {},
     };
   },
   components: {
@@ -45,6 +54,7 @@ export default {
     DetailShopInfo,
     Scroll,
     DetailParticularInfo,
+    DetailParamsInfo,
   },
   created() {
     this.iid = this.$route.params.goodsid;
@@ -102,6 +112,11 @@ export default {
         this.shop = new Shop(detailAllData.shopInfo);
         // 详情页详情信息
         this.particular = new Particular(detailAllData.detailInfo);
+        //  详情页参数数据
+        this.params = new Params(
+          detailAllData.itemParams.info,
+          detailAllData.itemParams.rule
+        );
       });
     },
   },

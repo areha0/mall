@@ -47,6 +47,10 @@ export default {
 </script>
 
 <style scoped>
+.detail-particular {
+  padding-bottom: 20px;
+  border-bottom: 3px solid rgba(200, 200, 200, 0.4);
+}
 /* 详情的题头 */
 .detail-particular-desc {
   padding: 10px 6px 20px;
