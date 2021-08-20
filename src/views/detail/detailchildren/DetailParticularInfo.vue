@@ -1,5 +1,5 @@
 <template>
-  <div class="detail-particular" v-if="Object.keys(particular) !== 0">
+  <div class="detail-particular" v-if="Object.keys(particular).length !== 0">
     <div class="detail-particular-desc">
       <div class="desc-start"></div>
       <div class="desc-name">{{ particular.name }}</div>

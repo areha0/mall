@@ -47,3 +47,14 @@ export class Params {
         this.image = info.images ? info.images[0] : ""
     }
 }
+
+export class Comment {
+    constructor(rate) {
+        this.userImg = rate.list[0].user.avatar;
+        this.name = rate.list[0].user.uname;
+        this.content = rate.list[0].content;
+        this.time = rate.list[0].created;
+        this.style = rate.list[0].style;
+        this.imgs = rate.list[0].images ? rate.list[0].images : ""
+    }
+}

@@ -1,5 +1,5 @@
 <template>
-  <div v-if="Object.keys(shop) !== 0" class="shop">
+  <div v-if="Object.keys(shop).length !== 0" class="shop">
     <div class="innerShop">
       <div class="shopName" v-if="shop.logo">
         <img :src="shop.logo" alt="" />

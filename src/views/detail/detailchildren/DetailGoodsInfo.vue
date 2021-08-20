@@ -1,5 +1,5 @@
 <template>
-  <div class="goods-info" v-if="Object.keys(goodsInfo) !== 0">
+  <div class="goods-info" v-if="Object.keys(goodsInfo).length !== 0">
     <div class="goods-info-title">{{ goodsInfo.title }}</div>
     <div class="goods-info-price">
       <span class="n-price">{{ goodsInfo.price }}</span>

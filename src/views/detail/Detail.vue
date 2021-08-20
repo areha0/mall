@@ -14,6 +14,10 @@
         @particularImgLoad="particularImgLoad"
       ></detail-particular-info>
       <detail-params-info :params="params"></detail-params-info>
+      <detail-comment-info
+        :comment="comment"
+        @commentImgLoad="commentImgLoad"
+      ></detail-comment-info>
     </scroll>
   </div>
 </template> 
@@ -26,6 +30,7 @@ import DetailShopInfo from "./detailchildren/DetailShopInfo";
 import Scroll from "components/commen/scroll/Scroll";
 import DetailParticularInfo from "./detailchildren/DetailParticularInfo";
 import DetailParamsInfo from "./detailchildren/DetailParamsInfo";
+import DetailCommentInfo from "./detailchildren/DetailCommentInfo";
 
 import {
   detailData,
@@ -33,6 +38,7 @@ import {
   Shop,
   Particular,
   Params,
+  Comment,
 } from "../../network/detail";
 
 export default {
@@ -45,6 +51,7 @@ export default {
       particular: {},
       imgRefresh: null,
       params: {},
+      comment: {},
     };
   },
   components: {
@@ -55,6 +62,7 @@ export default {
     Scroll,
     DetailParticularInfo,
     DetailParamsInfo,
+    DetailCommentInfo,
   },
   created() {
     this.iid = this.$route.params.goodsid;
@@ -76,8 +84,13 @@ export default {
       // console.log("myScrollRefresh()");
       this.$refs.detailScroll.myScrollRefresh();
     },
+    // 详情参数加载
     particularImgLoad() {
       this.imgRefresh();
+    },
+    // 评论图片加载
+    commentImgLoad() {
+      this.$refs.detailScroll.myScrollRefresh();
     },
 
     /**
@@ -117,6 +130,10 @@ export default {
           detailAllData.itemParams.info,
           detailAllData.itemParams.rule
         );
+        // 详情页评论数据
+        if (detailAllData.rate.list) {
+          this.comment = new Comment(detailAllData.rate);
+        }
       });
     },
   },

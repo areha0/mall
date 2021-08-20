@@ -1,6 +1,6 @@
 <template>
   <div class="detail-params">
-    <div class="params-table" v-if="Object.keys(params) !== 0">
+    <div class="params-table" v-if="Object.keys(params).length !== 0">
       <table class="table" v-if="params.table">
         <tr v-for="(itemtr, indextr) in params.table[0]" :key="indextr">
           <th v-for="(itemth, indexth) in itemtr" :key="indexth">
