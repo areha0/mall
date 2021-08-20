@@ -18,6 +18,7 @@
         :comment="comment"
         @commentImgLoad="commentImgLoad"
       ></detail-comment-info>
+      <goods-list :goods="recommend"></goods-list>
     </scroll>
   </div>
 </template> 
@@ -31,6 +32,7 @@ import Scroll from "components/commen/scroll/Scroll";
 import DetailParticularInfo from "./detailchildren/DetailParticularInfo";
 import DetailParamsInfo from "./detailchildren/DetailParamsInfo";
 import DetailCommentInfo from "./detailchildren/DetailCommentInfo";
+import GoodsList from "components/content/goodslist/GoodsList";
 
 import {
   detailData,
@@ -39,6 +41,7 @@ import {
   Particular,
   Params,
   Comment,
+  recommend,
 } from "../../network/detail";
 
 export default {
@@ -52,6 +55,7 @@ export default {
       imgRefresh: null,
       params: {},
       comment: {},
+      recommend: [],
     };
   },
   components: {
@@ -63,18 +67,26 @@ export default {
     DetailParticularInfo,
     DetailParamsInfo,
     DetailCommentInfo,
+    GoodsList,
   },
   created() {
     this.iid = this.$route.params.goodsid;
     // console.log(this.$route.params.goodsid);
 
+    // 详情页数据
     this.getDetailData(this.$route.params.goodsid);
+
+    // 推荐商品数据
+    this.getRecommendData();
   },
   mounted() {
     this.imgRefresh = this.debounce(
       this.$refs.detailScroll.myScrollRefresh,
       200
     );
+    this.$bus.$on("detailImageLoad", () => {
+      this.imgRefresh();
+    });
   },
   methods: {
     /**
@@ -134,6 +146,12 @@ export default {
         if (detailAllData.rate.list) {
           this.comment = new Comment(detailAllData.rate);
         }
+      });
+    },
+    // 推荐数据
+    getRecommendData() {
+      recommend().then((res) => {
+        this.recommend = res.data.data.list;
       });
     },
   },

@@ -58,3 +58,10 @@ export class Comment {
         this.imgs = rate.list[0].images ? rate.list[0].images : ""
     }
 }
+
+// 详情页推荐数据
+export function recommend() {
+    return request({
+        url: "recommend"
+    })
+}

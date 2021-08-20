@@ -68,6 +68,7 @@ export default {
 .detail-comment {
   padding: 10px 6px 30px;
   border-bottom: 3px solid rgba(200, 200, 200, 0.4);
+  margin-bottom: 10px;
 }
 /* 评论区头部标题 */
 .comment-title {

@@ -1,11 +1,13 @@
 <template>
-  <div class="goods-arrage" @click="goodsDetail">
-    <img :src="item.show.img" alt="" :title="item.title" @load="imgLoad" />
+  <div class="goods-arrage" @click="goodsDetail" v-if="Object.keys(item) !== 0">
     <div>
-      <p :title="item.title">{{ item.title }}</p>
-      <div class="item-infor">
-        <span class="price">{{ item.price | toPrice }}</span>
-        <span class="collect">{{ item.cfav }}</span>
+      <img :src="showImg" alt="" :title="item.title" @load="imgLoad" />
+      <div>
+        <p :title="item.title">{{ item.title }}</p>
+        <div class="item-infor">
+          <span class="price">{{ item.price | toPrice }}</span>
+          <span class="collect">{{ item.cfav }}</span>
+        </div>
       </div>
     </div>
   </div>
@@ -21,14 +23,27 @@ export default {
   },
   methods: {
     imgLoad() {
-      // 事件总线
-      this.$bus.$emit("itemImageLoad");
+      // 事件总线, 之前在演练时, 每次打开详情页返回主页时, 主页就会刷新,其实是事件总线的问题, 根据不同的情况发送不同的事件总线就可以了
+      if (this.$route.path.indexOf("home") !== -1) {
+        // console.log("home");
+        this.$bus.$emit("itemImageLoad");
+      } else if (this.$route.path.indexOf("detail") !== -1) {
+        // console.log("detail");
+        this.$bus.$emit("detailImageLoad");
+      }
     },
 
     // 监听商品被点击
     goodsDetail() {
       // console.log(this.item.iid);
-      this.$router.push("/detail/" + this.item.iid);
+      if (this.$route.path.indexOf("home") !== -1) {
+        this.$router.push("/detail/" + this.item.iid);
+      }
+    },
+  },
+  computed: {
+    showImg() {
+      return this.item.image || this.item.show.img;
     },
   },
   filters: {

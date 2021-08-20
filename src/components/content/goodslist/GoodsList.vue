@@ -29,7 +29,7 @@ export default {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
-  padding: 0 4px;
+  padding: 10px 4px;
 }
 .good-list-item {
   flex: 1;
