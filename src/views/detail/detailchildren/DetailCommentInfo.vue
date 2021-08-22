@@ -1,5 +1,5 @@
 <template>
-  <div class="detail-comment" v-if="Object.keys(comment).length !== 0">
+  <div class="detail-comment">
     <div class="comment-title">
       <span>用户评价</span>
       <a href="javaScrip:;">
@@ -7,7 +7,7 @@
         <i class="icon-comment"></i>
       </a>
     </div>
-    <div class="comment-main">
+    <div class="comment-main" v-if="Object.keys(comment).length !== 0">
       <div class="comment-user" v-if="comment.userImg">
         <img :src="comment.userImg" alt="" />
         <span>{{ comment.name }}</span>
@@ -122,7 +122,7 @@ export default {
   flex-wrap: wrap;
 }
 .img-item {
-  width: 30%;
+  width: 31%;
   margin-right: 8px;
 }
 </style>
