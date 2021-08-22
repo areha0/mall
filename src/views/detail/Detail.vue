@@ -6,7 +6,7 @@
       ref="detailNavBar"
     />
 
-    <scroll ref="detailScroll" @onScroll="onScroll">
+    <scroll ref="detailScroll" @onScroll="onScroll" :myProbType="3">
       <detail-swiper
         :topImage="topImage"
         @detailSwiperImgLoad="detailSwiperImgLoad"
@@ -27,6 +27,7 @@
     </scroll>
 
     <back-top @click.native="backToP" v-if="isShowBacktop" />
+    <detail-bottom-bar />
   </div>
 </template> 
 
@@ -41,6 +42,7 @@ import DetailParamsInfo from "./detailchildren/DetailParamsInfo";
 import DetailCommentInfo from "./detailchildren/DetailCommentInfo";
 import GoodsList from "components/content/goodslist/GoodsList";
 import BackTop from "components/commen/backtop/BackTop";
+import DetailBottomBar from "./detailchildren/DetailBottomBar";
 
 import {
   detailData,
@@ -68,6 +70,7 @@ export default {
       detailTemplateTop: [],
       getTemplateTop: null,
       navIndex: 0,
+      detailIndex: 0,
     };
   },
   components: {
@@ -81,6 +84,7 @@ export default {
     DetailCommentInfo,
     GoodsList,
     BackTop,
+    DetailBottomBar,
   },
   created() {
     this.iid = this.$route.params.goodsid;
@@ -103,7 +107,8 @@ export default {
       this.detailTemplateTop.push(this.$refs.detailParams.$el.offsetTop);
       this.detailTemplateTop.push(this.$refs.detailComment.$el.offsetTop);
       this.detailTemplateTop.push(this.$refs.detailRecommend.$el.offsetTop);
-      console.log(this.detailTemplateTop);
+      this.detailTemplateTop.push(Number.MAX_VALUE);
+      // console.log(this.detailTemplateTop);
     }, 200);
     this.$bus.$on("detailImageLoad", () => {
       this.imgRefresh();
@@ -134,14 +139,30 @@ export default {
     // 监听下拉位置
     onScroll(position) {
       this.isShowBacktop = Math.abs(position.y) > 1200;
-      if (Math.abs(position.y) < this.detailTemplateTop[1]) {
-        this.$refs.detailNavBar.currentIndex = 0;
-      } else if (Math.abs(position.y) < this.detailTemplateTop[2]) {
-        this.$refs.detailNavBar.currentIndex = 1;
-      } else if (Math.abs(position.y) < this.detailTemplateTop[3]) {
-        this.$refs.detailNavBar.currentIndex = 2;
-      } else {
-        this.$refs.detailNavBar.currentIndex = 3;
+      // 根据下拉位置控制导航栏的样式, 这个是个土方法, 可以使用for循环
+      // if (Math.abs(position.y) < this.detailTemplateTop[1]) {
+      //   this.$refs.detailNavBar.currentIndex = 0;
+      // } else if (Math.abs(position.y) < this.detailTemplateTop[2]) {
+      //   this.$refs.detailNavBar.currentIndex = 1;
+      // } else if (Math.abs(position.y) < this.detailTemplateTop[3]) {
+      //   this.$refs.detailNavBar.currentIndex = 2;
+      // } else {
+      //   this.$refs.detailNavBar.currentIndex = 3;
+      // }
+
+      // 总之是可以使用这种方式, 首先是之前的数组中在最后添加一个最大值 Number.MAX_VALUE
+      // 另外if条件判断语句的第一个条件是为了防止 NavBar 中的currentIndex被多次重复赋值
+
+      for (let i = 0; i < this.detailTemplateTop.length - 1; i++) {
+        if (
+          this.detailIndex !== i &&
+          this.detailTemplateTop[i] <= Math.abs(position.y) &&
+          Math.abs(position.y) < this.detailTemplateTop[i + 1]
+        ) {
+          this.detailIndex = i;
+          this.$refs.detailNavBar.currentIndex = i;
+          // console.log(this.$refs.detailNavBar.currentIndex);
+        }
       }
     },
     // 监听导航栏的点击
@@ -172,7 +193,7 @@ export default {
     getDetailData(id) {
       detailData(id).then((res) => {
         const detailAllData = res.data.result;
-        console.log(detailAllData);
+        // console.log(detailAllData);
         // 详情页轮播图数据
         this.topImage = detailAllData.itemInfo.topImages;
         // 详情页商品基本数据
@@ -222,6 +243,6 @@ export default {
   background-color: #fff;
 }
 .wrapper {
-  height: calc(100% - 44px);
+  height: calc(100% - 44px - 49px);
 }
 </style>
