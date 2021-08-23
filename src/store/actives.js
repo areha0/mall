@@ -12,11 +12,12 @@ export default {
             context.state.isHave = true;
         }
         if (context.state.isHave) {
+            payload.index = context.state.cartList.length
             this.commit("addTocart", payload);
             console.log("商品已添加至购物车");
         } else {
             console.log("购物车中已有该商品, 去购物车看看吧");
         }
-    }
+    },
 
 }

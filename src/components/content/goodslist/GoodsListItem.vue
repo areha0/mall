@@ -1,13 +1,11 @@
 <template>
   <div class="goods-arrage" @click="goodsDetail" v-if="Object.keys(item) !== 0">
+    <img :src="showImg" alt="" :title="item.title" @load="imgLoad" />
     <div>
-      <img :src="showImg" alt="" :title="item.title" @load="imgLoad" />
-      <div>
-        <p :title="item.title">{{ item.title }}</p>
-        <div class="item-infor">
-          <span class="price">{{ item.price | toPrice }}</span>
-          <span class="collect">{{ item.cfav }}</span>
-        </div>
+      <p :title="item.title">{{ item.title }}</p>
+      <div class="item-infor">
+        <span class="price">{{ item.price | toPrice }}</span>
+        <span class="collect">{{ item.cfav }}</span>
       </div>
     </div>
   </div>
@@ -60,7 +58,6 @@ export default {
   flex-direction: column;
   justify-content: space-between;
 }
-
 .goods-arrage img {
   width: 100%;
   border-radius: 14px;
