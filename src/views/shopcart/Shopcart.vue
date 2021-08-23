@@ -1,24 +1,16 @@
 <template>
-  <div>
-    <h2>购物车</h2>
+  <div id="shopcart">
+    <cart-nav-bar></cart-nav-bar>
   </div>
 </template>
 
 <script>
+import CartNavBar from "./cartchildren/CartNavBar";
 export default {
   name: "Shopcart",
-
-  components: {},
-
-  directives: {},
-
-  data() {
-    return {};
+  components: {
+    CartNavBar,
   },
-
-  mounted() {},
-
-  methods: {},
 };
 </script>
 

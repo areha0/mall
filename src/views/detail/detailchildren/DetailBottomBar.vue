@@ -19,7 +19,7 @@
       </div>
     </div>
     <div class="bottom-right">
-      <div>加入购物车</div>
+      <div @click="addCart">加入购物车</div>
       <div>购买</div>
     </div>
   </div>
@@ -36,6 +36,10 @@ export default {
   methods: {
     collectClick() {
       this.isCollect = !this.isCollect;
+    },
+    // 加入购物车操作
+    addCart() {
+      this.$emit("addCart");
     },
   },
 };

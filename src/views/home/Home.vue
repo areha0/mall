@@ -170,7 +170,7 @@ export default {
       // 下拉刷新结束
       setTimeout(() => {
         this.$refs.scroll.myPullingFinish();
-      }, 2000);
+      }, 1000);
     },
   },
 };

@@ -27,7 +27,7 @@
     </scroll>
 
     <back-top @click.native="backToP" v-if="isShowBacktop" />
-    <detail-bottom-bar />
+    <detail-bottom-bar @addCart="addCart" />
   </div>
 </template> 
 
@@ -173,6 +173,18 @@ export default {
         300
       );
     },
+    // 监听加入购物车操作
+    addCart() {
+      const product = {};
+      product.id = this.iid;
+      product.image = this.topImage[0];
+      product.title = this.goodsInfo.title;
+      product.desc = this.goodsInfo.desc;
+      product.price = this.goodsInfo.lowNowPrice;
+      product.count = 1;
+      // console.log(product);
+      this.$store.dispatch("ifHave", product);
+    },
 
     /**
      * 防抖函数
@@ -193,7 +205,7 @@ export default {
     getDetailData(id) {
       detailData(id).then((res) => {
         const detailAllData = res.data.result;
-        // console.log(detailAllData);
+        console.log(detailAllData);
         // 详情页轮播图数据
         this.topImage = detailAllData.itemInfo.topImages;
         // 详情页商品基本数据

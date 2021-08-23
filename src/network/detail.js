@@ -18,7 +18,9 @@ export class GoodsInfo {
         this.discountDesc = itemInfo.discountDesc;
         this.discountBgColor = itemInfo.discountBgColor;
         this.services = shopInfo.services;
-        this.columns = columns
+        this.columns = columns;
+        this.desc = itemInfo.desc;
+        this.lowNowPrice = itemInfo.lowNowPrice
     }
 }
 
