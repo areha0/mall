@@ -5,6 +5,7 @@
       :key="index"
       :product="item"
       :currentIndex="index"
+      @load="cartLoad"
     />
   </div>
 </template>
@@ -15,6 +16,11 @@ export default {
   name: "CartList",
   components: {
     CartListItem,
+  },
+  methods: {
+    cartLoad() {
+      console.log("我加载好了");
+    },
   },
 };
 </script>

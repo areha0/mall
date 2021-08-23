@@ -6,11 +6,13 @@
         name="products"
         :id="'checkbox' + currentIndex"
         value="currentIndex"
+        :checked="product.checked"
+        @click="checkboxClick"
       />
       <label :for="'checkbox' + currentIndex" class="checkbox-label"></label>
     </div>
     <div class="item-img">
-      <img :src="product.image" alt="" />
+      <img :src="product.image" alt="" @load="cartImgLoad" />
     </div>
     <div class="item-info">
       <div class="info-title">{{ product.title }}</div>
@@ -58,6 +60,15 @@ export default {
     increment() {
       this.$store.commit("increment", this.currentIndex);
     },
+    checkboxClick() {
+      this.$store.commit("checkboxClick", {
+        checked: this.product.checked,
+        index: this.currentIndex,
+      });
+    },
+    cartImgLoad() {
+      this.$emit("cartImgLoad");
+    },
   },
   computed: {
     isone() {
@@ -76,12 +87,12 @@ export default {
   align-items: center;
   border-bottom: 1px solid rgba(200, 200, 200, 0.4);
 }
-/* input[type="checkbox"]  */
 .select {
   width: 13px;
   height: 13px;
   border-radius: 50%;
   border: 1px solid #666;
+  border-radius: 50%;
   overflow: hidden;
   margin: 0;
   padding: 0;
@@ -101,6 +112,8 @@ input[type="checkbox"]:checked + label::before {
   content: "\ea45";
   font-family: "icomoon" !important;
   font-size: 12px;
+  width: 13px;
+  height: 13px;
   line-height: 13px;
   font-weight: 600;
   text-align: center;

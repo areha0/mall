@@ -24,5 +24,7 @@ export default {
 .detail-navbar {
   background-color: rgb(247, 150, 166);
   color: #fff;
+  position: relative;
+  z-index: 10;
 }
 </style>

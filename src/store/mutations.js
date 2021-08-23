@@ -9,5 +9,8 @@ export default {
     },
     increment(state, index) {
         state.cartList[index].count++
+    },
+    checkboxClick(state, payload) {
+        state.cartList[payload.index].checked = !payload.checked
     }
 }

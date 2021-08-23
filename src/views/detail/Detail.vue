@@ -205,7 +205,7 @@ export default {
     getDetailData(id) {
       detailData(id).then((res) => {
         const detailAllData = res.data.result;
-        console.log(detailAllData);
+        // console.log(detailAllData);
         // 详情页轮播图数据
         this.topImage = detailAllData.itemInfo.topImages;
         // 详情页商品基本数据
