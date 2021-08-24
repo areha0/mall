@@ -13,7 +13,7 @@
       <span>全选</span>
     </div>
     <div class="totle-price">合计: ￥{{ totlePrice }}</div>
-    <div class="pay-all">去结算({{ totlegoods }})</div>
+    <div class="pay-all" @click="topay">去结算({{ totlegoods }})</div>
   </div>
 </template>
 
@@ -62,10 +62,17 @@ export default {
     // 点击全选按钮
     selectAll() {
       if (this.isSelectall) {
-        console.log(123);
+        // console.log(123);
         this.$store.commit("selectNone");
       } else {
         this.$store.commit("selectAll");
+      }
+    },
+    topay() {
+      if (!this.isSelectall) {
+        // console.log("你什么商品都没选择");
+        // console.log(this.$toast.show);
+        this.$toast.show("你什么商品都没选择", 2000);
       }
     },
   },

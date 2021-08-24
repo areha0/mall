@@ -183,7 +183,11 @@ export default {
       product.price = this.goodsInfo.lowNowPrice;
       product.count = 1;
       // console.log(product);
-      this.$store.dispatch("ifHave", product);
+      // 这里要获得 isHave中返回的结果, 所以actions中的方法要返回一个promise
+      this.$store.dispatch("ifHave", product).then((res) => {
+        // console.log(this.$toast);
+        this.$toast.show(res, 2000);
+      });
     },
 
     /**
