@@ -4,6 +4,7 @@
     <scroll class="wrapper" ref="cartscroll">
       <cart-list />
     </scroll>
+    <cart-bottom-bar />
   </div>
 </template>
 
@@ -11,6 +12,7 @@
 import CartNavBar from "./cartchildren/CartNavBar";
 import CartList from "./cartchildren/CartList";
 import Scroll from "components/commen/scroll/Scroll";
+import CartBottomBar from "./cartchildren/CartBottomBar";
 
 export default {
   name: "Shopcart",
@@ -18,6 +20,7 @@ export default {
     CartNavBar,
     CartList,
     Scroll,
+    CartBottomBar,
   },
   activated() {
     this.$refs.cartscroll.myScrollRefresh();
@@ -30,6 +33,6 @@ export default {
   height: 100vh;
 }
 .wrapper {
-  height: calc(100% - 44px - 49px);
+  height: calc(100% - 44px - 49px - 40px);
 }
 </style>

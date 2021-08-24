@@ -12,5 +12,11 @@ export default {
     },
     checkboxClick(state, payload) {
         state.cartList[payload.index].checked = !payload.checked
+    },
+    selectAll(state) {
+        state.cartList.forEach(item => { item.checked = true })
+    },
+    selectNone(state) {
+        state.cartList.forEach(item => { item.checked = false })
     }
 }

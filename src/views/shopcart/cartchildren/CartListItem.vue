@@ -92,7 +92,6 @@ export default {
   height: 13px;
   border-radius: 50%;
   border: 1px solid #666;
-  border-radius: 50%;
   overflow: hidden;
   margin: 0;
   padding: 0;
@@ -102,24 +101,29 @@ export default {
 .checkbox-label {
   position: absolute;
   top: 0;
-  left: 0;
+  left: -1px;
   display: block;
-  width: 13px;
-  height: 13px;
+  width: 15px;
+  height: 15px;
 }
 input[type="checkbox"]:checked + label::before {
   display: block;
   content: "\ea45";
   font-family: "icomoon" !important;
   font-size: 12px;
-  width: 13px;
-  height: 13px;
+  width: 15px;
+  height: 15px;
   line-height: 13px;
   font-weight: 600;
   text-align: center;
   background-color: deeppink;
   color: #fff;
+  position: absolute;
+  top: 0;
+  left: -1px;
+  display: block;
 }
+
 input[type="checkbox"] {
   visibility: hidden;
 }
