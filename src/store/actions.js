@@ -4,13 +4,14 @@ export default {
         return new Promise((resolve, reject) => {
             if (context.state.cartList.length > 0) {
                 for (let i = 0; i < context.state.cartList.length; i++) {
-                    context.state.isHave = false;
-                    if (context.state.cartList[i].id != payload.id) {
-                        context.state.isHave = true
+                    context.state.isHave = true;
+                    if (context.state.cartList[i].id == payload.id) {
+                        context.state.isHave = false
                         break
                     }
                 }
             } else {
+                // 这个是购物车没有商品的情况下
                 context.state.isHave = true;
             }
 

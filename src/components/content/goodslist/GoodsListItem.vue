@@ -1,6 +1,6 @@
 <template>
   <div class="goods-arrage" @click="goodsDetail" v-if="Object.keys(item) !== 0">
-    <img :src="showImg" alt="" :title="item.title" @load="imgLoad" />
+    <img v-lazy="showImg" alt="" :title="item.title" @load="imgLoad" />
     <div>
       <p :title="item.title">{{ item.title }}</p>
       <div class="item-infor">
