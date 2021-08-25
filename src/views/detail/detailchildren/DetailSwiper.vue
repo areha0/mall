@@ -37,6 +37,11 @@ export default {
       this.isImgLoad = true;
     },
   },
+  mounted() {
+    window.addEventListener("resize", () => {
+      this.$refs.swiper.totleWidth = document.documentElement.clientWidth;
+    });
+  },
 };
 </script>
 

@@ -33,6 +33,8 @@ export default {
       pullUpLoad: this.myPullUpLoad,
       startY: true,
       click: true,
+      disableMouse: true,
+      disableTouch: false,
     });
     // console.log(this.scroll);
     // 监测滚动

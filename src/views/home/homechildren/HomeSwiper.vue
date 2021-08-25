@@ -31,6 +31,11 @@ export default {
       type: Array,
     },
   },
+  mounted() {
+    window.addEventListener("resize", () => {
+      this.$refs.swiper.totleWidth = document.documentElement.clientWidth;
+    });
+  },
   methods: {
     imgLoad() {
       // console.log("图片加载完毕");
