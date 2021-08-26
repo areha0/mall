@@ -89,6 +89,10 @@ export default {
       // this.$refs.scroll.myScrollRefresh();
       refresh();
     });
+    // 监测页面大小改变,要跟着更新tabContrlTop的高度
+    window.addEventListener("resize", () => {
+      this.tabContrlTop = this.$refs.tabControl.$el.offsetTop;
+    });
   },
 
   methods: {
@@ -109,6 +113,7 @@ export default {
       }
       this.$refs.FixedtabControl.activeIndex = index;
       this.$refs.tabControl.activeIndex = index;
+      this.$refs.scroll.myScrollTo(0, -this.tabContrlTop, 200);
     },
 
     backTopClick() {

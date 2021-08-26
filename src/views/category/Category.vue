@@ -75,11 +75,12 @@ export default {
     // 获取左侧列表数据
     this.getCategoryList();
   },
+
   mounted() {
     setTimeout(() => {
       this.$refs.leftscroll.myScrollRefresh();
-      this.getTargetData();
       this.meaturetabTop();
+      this.getTargetData();
     }, 300);
     this.refresh = this.debounce(this.$refs.rightcate.myScrollRefresh, 200);
     this.meaturetabTop = this.debounce(() => {

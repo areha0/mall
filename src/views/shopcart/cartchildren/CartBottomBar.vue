@@ -85,7 +85,8 @@ export default {
   position: relative;
   z-index: 11;
   bottom: 0;
-  background-color: rgba(200, 200, 200, 0.4);
+  /* background-color: rgba(200, 200, 200); */
+  background-color: #fff;
   display: flex;
   justify-content: space-between;
   align-items: center;

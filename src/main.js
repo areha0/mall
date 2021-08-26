@@ -23,5 +23,5 @@ new Vue({
 
 
 Vue.use(LazyLoad, {
-  loading: require("./assets/img/common/placeholder.png")
+  loading: require("./assets/img/common/shuosuo.jpg")
 })

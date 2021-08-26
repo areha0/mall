@@ -15,7 +15,7 @@
         </tr>
       </table>
 
-      <img :src="params.image" alt="" />
+      <img :src="params.image" alt="" class="params-img" />
     </div>
   </div>
 </template>
@@ -56,5 +56,9 @@ export default {
 }
 .redColor {
   color: rgb(224, 86, 86);
+}
+.params-img {
+  width: 360px;
+  margin: 0 auto;
 }
 </style>

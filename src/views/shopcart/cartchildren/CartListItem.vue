@@ -5,14 +5,16 @@
         type="checkbox"
         name="products"
         :id="'checkbox' + currentIndex"
-        value="currentIndex"
         :checked="product.checked"
-        @click="checkboxClick"
       />
-      <label :for="'checkbox' + currentIndex" class="checkbox-label"></label>
+      <label
+        :for="'checkbox' + currentIndex"
+        class="checkbox-label"
+        @click="checkboxClick"
+      ></label>
     </div>
     <div class="item-img">
-      <img :src="product.image" alt="" @load="cartImgLoad" />
+      <img :src="product.image" alt="" />
     </div>
     <div class="item-info">
       <div class="info-title">{{ product.title }}</div>
@@ -60,15 +62,15 @@ export default {
     increment() {
       this.$store.commit("increment", this.currentIndex);
     },
-    checkboxClick() {
+    checkboxClick(event) {
       this.$store.commit("checkboxClick", {
         checked: this.product.checked,
         index: this.currentIndex,
       });
     },
-    cartImgLoad() {
-      this.$emit("cartImgLoad");
-    },
+    // cartImgLoad() {
+    //   this.$emit("cartImgLoad");
+    // },
   },
   computed: {
     isone() {
