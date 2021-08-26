@@ -31,12 +31,13 @@ export default {
       // probeType: this.myProbType,
       probeType: this.myProbType,
       pullUpLoad: this.myPullUpLoad,
-      startY: true,
+      // startY: true,
+      scrollY: true,
       click: true,
       disableMouse: true,
       disableTouch: false,
     });
-    // console.log(this.scroll);
+    console.log(this.scroll);
     // 监测滚动
     this.scroll.on("scroll", (position) => {
       // console.log(position);
