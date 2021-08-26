@@ -28,6 +28,8 @@ export default {
       } else if (this.$route.path.indexOf("detail") !== -1) {
         // console.log("detail");
         this.$bus.$emit("detailImageLoad");
+      } else if (this.$route.path.indexOf("category") !== -1) {
+        this.$bus.$emit("cateImageLoad");
       }
     },
 
@@ -41,7 +43,7 @@ export default {
   },
   computed: {
     showImg() {
-      return this.item.image || this.item.show.img;
+      return this.item.img || this.item.image || this.item.show.img;
     },
   },
   filters: {
@@ -57,6 +59,7 @@ export default {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  width: 40%;
 }
 .goods-arrage img {
   width: 100%;

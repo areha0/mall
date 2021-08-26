@@ -14,3 +14,13 @@ export function cateSubIcon(maitKey) {
         }
     })
 }
+
+export function cateGoods(miniWallkey, type) {
+    return request({
+        url: "/subcategory/detail",
+        params: {
+            miniWallkey,
+            type
+        }
+    })
+}
