@@ -5,3 +5,12 @@ export function categoryList() {
         url: '/category'
     })
 }
+
+export function cateSubIcon(maitKey) {
+    return request({
+        url: '/subcategory',
+        params: {
+            maitKey
+        }
+    })
+}

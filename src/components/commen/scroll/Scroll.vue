@@ -37,7 +37,7 @@ export default {
       disableMouse: true,
       disableTouch: false,
     });
-    console.log(this.scroll);
+    // console.log(this.scroll);
     // 监测滚动
     this.scroll.on("scroll", (position) => {
       // console.log(position);
