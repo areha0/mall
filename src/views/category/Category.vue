@@ -3,7 +3,7 @@
     <cate-nav-bar />
     <div class="cate-content">
       <div class="left-menu">
-        <scroll ref="leftscroll" class="leftacroll">
+        <scroll ref="leftscroll" class="leftscroll">
           <cate-left-menu
             :list="categoryList"
             ref="menu"
