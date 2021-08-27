@@ -91,6 +91,6 @@ export default {
 .collect::before {
   content: "\eafb";
   font-family: "icomoon" !important;
-  font-size: 14px;
+  font-size: 12px;
 }
 </style>
