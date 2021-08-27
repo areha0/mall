@@ -23,7 +23,7 @@
         :banner="banner"
         @SwiperImgLoad="SwiperImgLoad"
       ></home-swiper>
-      <home-recommend :recommend="recommend"></home-recommend>
+      <home-recommend :recommend="recommend" @recommendLoad="recommendLoad" />
       <home-feature></home-feature>
       <tab-control
         :tabtitle="['流行', '新款', '精选']"
@@ -64,6 +64,7 @@ export default {
       isShowBackTop: false,
       tabContrlTop: 0,
       isTabControlFixed: false,
+      meatureOffsetTop: null,
     };
   },
   components: {
@@ -85,13 +86,16 @@ export default {
   mounted() {
     // 更新better-scroll
     const refresh = this.debounce(this.$refs.scroll.myScrollRefresh, 200);
+    this.meatureOffsetTop = this.debounce(() => {
+      this.tabContrlTop = this.$refs.tabControl.$el.offsetTop;
+    }, 200);
     this.$bus.$on("itemImageLoad", () => {
       // this.$refs.scroll.myScrollRefresh();
       refresh();
     });
     // 监测页面大小改变,要跟着更新tabContrlTop的高度
     window.addEventListener("resize", () => {
-      this.tabContrlTop = this.$refs.tabControl.$el.offsetTop;
+      this.meatureOffsetTop();
     });
   },
 
@@ -138,7 +142,11 @@ export default {
     // 监听轮播图片是否加载完成
     SwiperImgLoad() {
       // 2.测量tab-control距离父元素的高度, 由于拿到的是一个组件, 所以并没有offsetTop属性, 所以需要使用属性$el
-      this.tabContrlTop = this.$refs.tabControl.$el.offsetTop;
+      this.meatureOffsetTop();
+    },
+    // 监听推荐图片的加载
+    recommendLoad() {
+      this.meatureOffsetTop();
     },
 
     // better-scroll更新refresh()方法的防抖动操作封装

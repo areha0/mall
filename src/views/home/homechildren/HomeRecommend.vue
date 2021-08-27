@@ -2,7 +2,7 @@
   <div class="recommend">
     <div class="recommend-item" v-for="(item, index) in recommend" :key="index">
       <a :href="item.link" :title="item.title">
-        <img :src="item.image" alt="" />
+        <img :src="item.image" alt="" @load="recommendLoad" />
         <div>{{ item.title }}</div>
       </a>
     </div>
@@ -15,6 +15,11 @@ export default {
   props: {
     recommend: {
       type: Array,
+    },
+  },
+  methods: {
+    recommendLoad() {
+      this.$emit("recommendLoad");
     },
   },
 };

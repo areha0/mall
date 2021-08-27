@@ -82,9 +82,12 @@ export default {
 <style scoped>
 .cart-bottombar {
   height: 40px;
-  position: relative;
+  /* position: relative; */
+  position: absolute;
   z-index: 11;
-  bottom: 0;
+  bottom: 49px;
+  left: 0;
+  right: 0;
   /* background-color: rgba(200, 200, 200); */
   background-color: #fff;
   display: flex;

@@ -49,9 +49,13 @@ export default {
 .detail-bottombar {
   height: 49px;
   display: flex;
-  position: relative;
   background-color: #fff;
   border-top: 1px solid rgba(200, 200, 200, 0.4);
+  /* position: relative; */
+  position: fixed;
+  bottom: 0px;
+  left: 0;
+  right: 0;
 }
 /* 左侧的三个东西 */
 .bottom-left,

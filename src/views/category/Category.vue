@@ -69,6 +69,7 @@ export default {
       tabTop: 0,
       notShow: true,
       meaturetabTop: null,
+      firstGetGoods: null,
     };
   },
   created() {
@@ -79,10 +80,11 @@ export default {
   mounted() {
     setTimeout(() => {
       this.$refs.leftscroll.myScrollRefresh();
-      this.meaturetabTop();
-      this.getTargetData();
+      // this.meaturetabTop();
+      // this.getTargetData();
     }, 300);
     this.refresh = this.debounce(this.$refs.rightcate.myScrollRefresh, 200);
+    this.firstGetGoods = this.debounce(this.getTargetData, 200);
     this.meaturetabTop = this.debounce(() => {
       this.tabTop = this.$refs.tabcontrol.$el.offsetTop;
     }, 200);
@@ -109,6 +111,8 @@ export default {
     // iconLoad中的图片加载完毕, 需要舒心Scroll, 需要用到防抖
     iconLoad() {
       this.refresh();
+      this.firstGetGoods();
+      this.meaturetabTop();
     },
     // tabcontrol 被点击
     tabItemClick(index) {
