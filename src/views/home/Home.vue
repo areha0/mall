@@ -4,6 +4,7 @@
       <div slot="center" class="home-nav-center">购物街</div>
     </nav-bar>
 
+    <!-- 页面下滑到一定程度时显示此tab-control -->
     <tab-control
       :tabtitle="['流行', '新款', '精选']"
       @tabClick="tabClick"

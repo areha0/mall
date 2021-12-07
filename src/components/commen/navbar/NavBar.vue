@@ -24,10 +24,11 @@ export default {
   height: 44px;
   line-height: 44px;
   text-align: center;
+  align-items: center;
 }
 .slot-left,
 .slot-right {
-  width: 50px;
+  width: 60px;
 }
 .slot-center {
   flex: 1;

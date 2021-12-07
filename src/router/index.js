@@ -33,6 +33,14 @@ const routes = [
     {
         path: "/detail/:goodsid",
         component: () => import("../views/detail/Detail")
+    },
+    {
+        path: "/login",
+        component: () => import("views/login/Login")
+    },
+    {
+        path: "/register",
+        component: () => import("views/register/Register")
     }
 ]
 

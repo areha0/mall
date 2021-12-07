@@ -1,5 +1,5 @@
 <template>
-  <div class="user-info">
+  <div class="user-info" @click="toLogin">
     <!-- 由于现在没有用户数据, 所以先预留插槽, 然后在插槽中插入默认的数据 -->
     <div class="user-logo">
       <slot>
@@ -29,6 +29,19 @@
 <script>
 export default {
   name: "UserInfo",
+  // setup() {
+  //   function toLogin() {
+  //     // this.$router.push("/login");
+  //     console.log(123);
+  //   }
+
+  //   return { toLogin };
+  // },
+  methods: {
+    toLogin() {
+      this.$router.push("/login");
+    },
+  },
 };
 </script>
 
