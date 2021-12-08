@@ -43,6 +43,7 @@ import DetailCommentInfo from "./detailchildren/DetailCommentInfo";
 import GoodsList from "components/content/goodslist/GoodsList";
 import BackTop from "components/commen/backtop/BackTop";
 import DetailBottomBar from "./detailchildren/DetailBottomBar";
+import { postShop } from "network/user/shopcart";
 
 import {
   detailData,
@@ -53,6 +54,7 @@ import {
   Comment,
   recommend,
 } from "../../network/detail";
+import { cateGoods } from "../../network/category";
 
 export default {
   name: "Detail",
@@ -173,8 +175,19 @@ export default {
         300
       );
     },
+    // 将购物车信息发送数据库
+    runPostShop(value) {
+      postShop(value).then((res) => {
+        console.log(res);
+      });
+    },
     // 监听加入购物车操作
     addCart() {
+      let name = this.$store.state.userBaseInfo.name;
+      if (!name) {
+        this.$router.push("/login");
+        return;
+      }
       const product = {};
       product.id = this.iid;
       product.image = this.topImage[0];
@@ -188,6 +201,11 @@ export default {
         // console.log(this.$toast);
         this.$toast.show(res, 2000);
       });
+      // console.log(this.$store.state.cartList);
+      product.username = name;
+      product.state = 1;
+      // 这里传输的数据都是需要插入的数据 state=1
+      this.debounce(this.runPostShop(product), 2000);
     },
 
     /**

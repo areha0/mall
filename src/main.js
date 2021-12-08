@@ -13,8 +13,8 @@ Vue.use(ElementUI);
 FastClick.attach(document.body)
 Vue.use(toast)
 
-Vue.prototype.HOST = 'http://localhost:3000'
-Vue.prototype.$axios = axios;
+// Vue.prototype.HOST = 'http://localhost:3000'
+// Vue.prototype.$axios = axios;
 
 Vue.config.productionTip = false
 // 事件总线

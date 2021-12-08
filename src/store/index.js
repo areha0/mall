@@ -9,7 +9,8 @@ Vue.use(Vuex)
 
 const state = {
     cartList: [],
-    isHave: false
+    isHave: false,
+    userBaseInfo: {},
 };
 
 const store = new Vuex.Store({

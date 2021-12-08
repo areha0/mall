@@ -1,7 +1,15 @@
 <template>
   <div id="profile">
     <profile-nav-bar />
-    <user-info />
+    <user-info>
+      <img alt="" slot="img" v-if="$store.state.userBaseInfo.avator" />
+      <span slot="username" v-if="$store.state.userBaseInfo.name">{{
+        $store.state.userBaseInfo.name
+      }}</span>
+      <span slot="phone" v-if="$store.state.userBaseInfo.phone">{{
+        $store.state.userBaseInfo.phone
+      }}</span>
+    </user-info>
     <profile-account />
     <profile-list :list="firstList" />
     <profile-list :list="secondList" />

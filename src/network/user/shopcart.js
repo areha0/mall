@@ -1,8 +1,8 @@
 import { user } from "./user"
 
-export function loginData(params) {
+export function postShop(params) {
   return user({
-    url: '/login',
+    url: '/shopcart',
     data: {
       params
     }

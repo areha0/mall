@@ -13,6 +13,7 @@ import CartNavBar from "./cartchildren/CartNavBar";
 import CartList from "./cartchildren/CartList";
 import Scroll from "components/commen/scroll/Scroll";
 import CartBottomBar from "./cartchildren/CartBottomBar";
+import { postShop } from "network/user/shopcart";
 
 export default {
   name: "Shopcart",
@@ -21,6 +22,11 @@ export default {
     CartList,
     Scroll,
     CartBottomBar,
+  },
+  data() {
+    return {
+      todos: this.$store.state.cartList,
+    };
   },
   activated() {
     this.$refs.cartscroll.myScrollRefresh();

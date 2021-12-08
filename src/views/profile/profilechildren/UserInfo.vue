@@ -2,20 +2,20 @@
   <div class="user-info" @click="toLogin">
     <!-- 由于现在没有用户数据, 所以先预留插槽, 然后在插槽中插入默认的数据 -->
     <div class="user-logo">
-      <slot>
+      <slot name="img">
         <img src="~assets/img/common/default-logo.jpg" alt="" />
       </slot>
     </div>
 
     <div class="user-detail">
       <div class="user-name">
-        <slot>
+        <slot name="username">
           <span>登录/注册</span>
         </slot>
       </div>
       <div class="user-phone">
-        <slot>
-          <i class="icon-phone"></i>
+        <i class="icon-phone"></i>
+        <slot name="phone">
           <span>暂无绑定手机号</span>
         </slot>
       </div>
@@ -39,7 +39,12 @@ export default {
   // },
   methods: {
     toLogin() {
-      this.$router.push("/login");
+      // console.log(this.$store.state.userBaseInfo);
+      if (!this.$store.state.userBaseInfo.name) {
+        this.$router.push("/login");
+      } else {
+        alert("已登录过了");
+      }
     },
   },
 };
