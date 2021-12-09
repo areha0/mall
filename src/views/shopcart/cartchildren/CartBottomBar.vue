@@ -18,8 +18,26 @@
 </template>
 
 <script>
+import { postShop } from "network/user/shopcart";
 export default {
   name: "CartBottomBar",
+  data() {
+    return {
+      datafalse: {
+        state: 4,
+        checked: false,
+        username: this.$store.state.userBaseInfo.name,
+      },
+      datatrue: {
+        state: 4,
+        checked: true,
+        username: this.$store.state.userBaseInfo.name,
+      },
+      postfalse: null,
+      posttrue: null,
+      postall: null,
+    };
+  },
   computed: {
     totlePrice() {
       return this.$store.state.cartList
@@ -58,15 +76,25 @@ export default {
       }
     },
   },
+  mounted() {
+    // 发送post请求
+    // 使用这两个方法时, 会有两个防抖函数的效果
+    // this.postfalse = this.debounce(this.posttoo, 500);
+    // this.posttrue = this.debounce(this.postthree, 500);
+    this.postall = this.debounce(this.postfour, 500);
+  },
   methods: {
     // 点击全选按钮
     selectAll() {
       if (this.isSelectall) {
         // console.log(123);
         this.$store.commit("selectNone");
+        // this.postfalse();
       } else {
         this.$store.commit("selectAll");
+        // this.posttrue();
       }
+      this.postall();
     },
     topay() {
       if (!this.isSelectall) {
@@ -74,6 +102,34 @@ export default {
         // console.log(this.$toast.show);
         this.$toast.show("你什么商品都没选择", 2000);
       }
+    },
+
+    post(value) {
+      postShop(value).then((res) => console.log(res));
+    },
+    posttoo() {
+      this.post(this.datafalse);
+    },
+    postthree() {
+      this.post(this.datatrue);
+    },
+    postfour() {
+      if (!this.isSelectall) {
+        this.posttoo();
+      } else {
+        this.postthree();
+      }
+    },
+
+    // 防抖函数
+    debounce(func, delay) {
+      let timer = null;
+      return function () {
+        if (timer) clearTimeout(timer);
+        timer = setTimeout(() => {
+          func.apply(this);
+        }, delay);
+      };
     },
   },
 };

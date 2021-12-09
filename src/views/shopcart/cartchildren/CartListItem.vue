@@ -34,6 +34,7 @@
 </template>
 
 <script>
+import { postShop } from "network/user/shopcart";
 export default {
   name: "CartListItem",
   props: {
@@ -47,6 +48,22 @@ export default {
       type: Number,
     },
   },
+  data() {
+    return {
+      datacount: {
+        id: this.product.id,
+        count: this.product.count,
+        state: 2,
+      },
+      datachecked: {
+        id: this.product.id,
+        checked: this.product.checked,
+        state: 3,
+      },
+      postcount: null,
+      postchecked: null,
+    };
+  },
   filters: {
     showPrice(price) {
       return "￥" + price;
@@ -55,22 +72,51 @@ export default {
       return "x" + count;
     },
   },
+  mounted() {
+    this.postcount = this.debounce(this.posttoo, 500);
+    this.postchecked = this.debounce(this.postthree, 500);
+  },
+
   methods: {
     decrement() {
       this.$store.commit("decrement", this.currentIndex);
+      // 在这里修改的是数据的count值
+      this.postcount();
     },
     increment() {
       this.$store.commit("increment", this.currentIndex);
+      this.postcount();
     },
     checkboxClick(event) {
       this.$store.commit("checkboxClick", {
         checked: this.product.checked,
         index: this.currentIndex,
       });
+      this.postchecked();
     },
-    // cartImgLoad() {
-    //   this.$emit("cartImgLoad");
-    // },
+    // 下面全是post请求相关的函数
+    // 发送post请求
+    post(value) {
+      postShop(value).then((res) => console.log(res));
+    },
+    postthree() {
+      this.datachecked.checked = this.product.checked;
+      this.post(this.datachecked);
+    },
+    posttoo() {
+      this.datacount.count = this.product.count;
+      this.post(this.datacount);
+    },
+    // 防抖函数
+    debounce(func, delay) {
+      let timer = null;
+      return function () {
+        if (timer) clearTimeout(timer);
+        timer = setTimeout(() => {
+          func.apply(this);
+        }, delay);
+      };
+    },
   },
   computed: {
     isone() {

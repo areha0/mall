@@ -73,6 +73,7 @@ export default {
       getTemplateTop: null,
       navIndex: 0,
       detailIndex: 0,
+      run: null,
     };
   },
   components: {
@@ -99,6 +100,7 @@ export default {
     this.getRecommendData();
   },
   mounted() {
+    this.run = this.debounce(this.runPostShop(product), 2000);
     this.imgRefresh = this.debounce(
       this.$refs.detailScroll.myScrollRefresh,
       200
@@ -203,9 +205,10 @@ export default {
       });
       // console.log(this.$store.state.cartList);
       product.username = name;
+
       product.state = 1;
       // 这里传输的数据都是需要插入的数据 state=1
-      this.debounce(this.runPostShop(product), 2000);
+      this.run();
     },
 
     /**
