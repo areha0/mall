@@ -51,20 +51,29 @@ export default {
             this.message = "* 密码错误";
             break;
           case 3:
+            // 登陆成功后的一系列操作: 不报错, 向vuex中添加用户信息(用户在个人用户页面进行展示), 保存用户的购物车信息
             this.message = "";
             let userInfo = res.data.result[0];
             // console.log(res.data.result);
-            this.$store.state.userBaseInfo = {
+            // this.$store.state.userBaseInfo = {
+            //   name: userInfo.name,
+            //   phone: userInfo.phone,
+            // };
+            let shopcart = userInfo.shopcart;
+            // console.log(this.$store.state.userBaseInfo);
+            // console.log(this.$store.state.cartList);
+
+            // ** 这里我们使用localStorage来保存我们的用户登录状态, 保证刷新之后不改变用户登录状态
+            let user = {
               name: userInfo.name,
               phone: userInfo.phone,
             };
-            this.$store.state.cartList = userInfo.shopcart;
+            this.$store.commit("setUser", user);
+            // ** localStorage来保存我们的购物车, 保证刷新之后不会改变购物车列表
+            // 为了实时监测购物车状态, 需要多次修改localStorage
+            this.$store.commit("setCart", shopcart);
             this.$router.back();
-            console.log(this.$store.state.userBaseInfo);
-            console.log(this.$store.state.cartList);
         }
-
-        // 在用户登录成功后,我们还需要获取使用聚合管道生成的数据
       });
     },
   },

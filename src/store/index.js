@@ -8,9 +8,9 @@ import getters from "./getters"
 Vue.use(Vuex)
 
 const state = {
-    cartList: [],
+    cartList: JSON.parse(localStorage.getItem("shopcart")) || [],
     isHave: false,
-    userBaseInfo: {},
+    userBaseInfo: JSON.parse(localStorage.getItem("userInfo")) || {},
 };
 
 const store = new Vuex.Store({

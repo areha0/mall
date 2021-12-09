@@ -2,12 +2,12 @@
   <div id="profile">
     <profile-nav-bar />
     <user-info>
-      <img alt="" slot="img" v-if="$store.state.userBaseInfo.avator" />
-      <span slot="username" v-if="$store.state.userBaseInfo.name">{{
-        $store.state.userBaseInfo.name
+      <img alt="" slot="img" v-if="userInfo && userInfo.avator" />
+      <span slot="username" v-if="userInfo && userInfo.name">{{
+        userInfo.name
       }}</span>
-      <span slot="phone" v-if="$store.state.userBaseInfo.phone">{{
-        $store.state.userBaseInfo.phone
+      <span slot="phone" v-if="userInfo && userInfo.phone">{{
+        userInfo.phone
       }}</span>
     </user-info>
     <profile-account />
@@ -42,6 +42,11 @@ export default {
         { icon: "", title: "下载购物车APP" },
       ],
     };
+  },
+  computed: {
+    userInfo() {
+      return this.$store.state.userBaseInfo;
+    },
   },
 };
 </script>

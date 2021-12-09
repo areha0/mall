@@ -29,21 +29,15 @@
 <script>
 export default {
   name: "UserInfo",
-  // setup() {
-  //   function toLogin() {
-  //     // this.$router.push("/login");
-  //     console.log(123);
-  //   }
-
-  //   return { toLogin };
-  // },
   methods: {
     toLogin() {
-      // console.log(this.$store.state.userBaseInfo);
-      if (!this.$store.state.userBaseInfo.name) {
+      let userInfo = this.$store.state.userBaseInfo;
+      // console.log(userInfo);
+      if (!userInfo.name) {
         this.$router.push("/login");
       } else {
         alert("已登录过了");
+        this.$store.commit("setUser", {});
       }
     },
   },

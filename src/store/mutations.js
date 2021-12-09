@@ -18,5 +18,15 @@ export default {
     },
     selectNone(state) {
         state.cartList.forEach(item => { item.checked = false })
+    },
+    setUser(state, user) {
+        // 将user存入到locaStorage中
+        localStorage.setItem("userInfo", JSON.stringify(user));
+        // 将信息存到vuex中
+        state.userBaseInfo = user
+    },
+    setCart(state, shopcart) {
+        localStorage.setItem("shopcart", JSON.stringify(shopcart));
+        state.cartList = shopcart
     }
 }
