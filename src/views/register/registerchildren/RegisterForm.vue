@@ -2,16 +2,25 @@
   <div class="form">
     <form action="" class="infor">
       <el-input
-        v-model="name"
+        v-model="userregister.name"
         placeholder="your name"
         class="name"
+        name="name"
+        autofocus
+      ></el-input>
+      <el-input
+        v-model="userregister.phone"
+        placeholder="your phone"
+        class="phone"
+        name="phone"
         autofocus
       ></el-input>
       <el-input
         placeholder="your password"
-        v-model="pwd"
+        v-model="userregister.pwd"
         show-password
         class="pwd"
+        name="psd"
       ></el-input>
       <el-input
         placeholder="ensure your password"
@@ -19,20 +28,32 @@
         show-password
         class="sepwd"
       ></el-input>
-      <input type="submit" value="sign up" class="submit" />
+      <span class="span"></span>
+      <input type="submit" value="sign up" class="submit" @click="submit" />
     </form>
   </div>
 </template>
 
 <script>
+import { loginData } from "network/user/login";
 export default {
   name: "RegisterForm",
   data() {
     return {
-      name: "",
-      pwd: "",
+      userregister: {
+        name: "",
+        pwd: "",
+        phone: "",
+      },
       secondpwd: "",
+      message: "",
     };
+  },
+  computed: {
+    isTrue() {},
+  },
+  methods: {
+    submit() {},
   },
 };
 </script>
@@ -44,7 +65,8 @@ export default {
   margin: 0 auto;
   margin-top: 40px;
 }
-.name {
+.name,
+.phone {
   margin-bottom: 20px;
 }
 
@@ -52,7 +74,11 @@ export default {
   margin-bottom: 20px;
 }
 .sepwd {
-  margin-bottom: 30px;
+  margin-bottom: 10px;
+}
+.span {
+  margin-bottom: 20px;
+  color: rgb(250, 33, 33);
 }
 .submit {
   position: relative;
