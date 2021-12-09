@@ -40,7 +40,9 @@ export default {
   },
   computed: {
     totlePrice() {
-      return this.$store.state.cartList
+      let list = this.$store.state.cartList;
+      if (JSON.stringify(list) === "{}") list = [];
+      return list
         .filter((item) => {
           return item.checked;
         })
@@ -50,7 +52,9 @@ export default {
         .toFixed(2);
     },
     totlegoods() {
-      return this.$store.state.cartList
+      let list = this.$store.state.cartList;
+      if (JSON.stringify(list) === "{}") list = [];
+      return list
         .filter((item) => {
           return item.checked;
         })
@@ -60,7 +64,10 @@ export default {
     },
     // 判断全选按钮是否应该被选中
     isSelectall() {
-      const list = this.$store.state.cartList;
+      // const list = JSON.stringify(this.$store.state.cartList);
+      // console.log(list);
+      let list = this.$store.state.cartList;
+      if (JSON.stringify(list) === "{}") list = [];
       if (list.length == 0) {
         return false;
       } else {

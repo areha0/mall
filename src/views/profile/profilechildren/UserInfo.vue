@@ -38,6 +38,7 @@ export default {
       } else {
         alert("已登录过了");
         this.$store.commit("setUser", {});
+        this.$store.commit("setCart", []);
       }
     },
   },

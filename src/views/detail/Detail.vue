@@ -73,7 +73,6 @@ export default {
       getTemplateTop: null,
       navIndex: 0,
       detailIndex: 0,
-      run: null,
     };
   },
   components: {
@@ -100,7 +99,6 @@ export default {
     this.getRecommendData();
   },
   mounted() {
-    this.run = this.debounce(this.runPostShop(product), 2000);
     this.imgRefresh = this.debounce(
       this.$refs.detailScroll.myScrollRefresh,
       200
@@ -178,11 +176,7 @@ export default {
       );
     },
     // 将购物车信息发送数据库
-    runPostShop(value) {
-      postShop(value).then((res) => {
-        console.log(res);
-      });
-    },
+
     // 监听加入购物车操作
     addCart() {
       let name = this.$store.state.userBaseInfo.name;
@@ -201,19 +195,21 @@ export default {
       // 这里要获得 isHave中返回的结果, 所以actions中的方法要返回一个promise
       this.$store.dispatch("ifHave", product).then((res) => {
         // console.log(this.$toast);
-        this.$toast.show(res, 2000);
+        this.$toast.show(res.message, 2000);
+        product.username = name;
+        product.state = 1;
+        res.state && this.post(product);
       });
       // console.log(this.$store.state.cartList);
-      product.username = name;
 
-      product.state = 1;
       // 这里传输的数据都是需要插入的数据 state=1
-      this.run();
+      // 这里有一个小bug, 添加过的数据, 依然会添加
+    },
+    post(value) {
+      postShop(value).then((res) => console.log(res));
     },
 
-    /**
-     * 防抖函数
-     */
+    // 防抖函数
     debounce(func, delay) {
       let timer = null;
       return function () {
