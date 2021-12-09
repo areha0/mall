@@ -42,7 +42,6 @@ export default {
       let params = { username: this.username, password: this.password };
       loginData(params).then((res) => {
         let state = res.data.state;
-        let userInfo = res.data.result[0];
         console.log(res.data);
         switch (state) {
           case 1:
@@ -53,6 +52,7 @@ export default {
             break;
           case 3:
             this.message = "";
+            let userInfo = res.data.result[0];
             // console.log(res.data.result);
             this.$store.state.userBaseInfo = {
               name: userInfo.name,
