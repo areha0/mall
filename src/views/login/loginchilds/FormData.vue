@@ -7,12 +7,14 @@
         v-model="username"
         placeholder="your name"
         class="name"
+        key="name"
         autofocus
       ></el-input>
       <el-input
         placeholder="your password"
         v-model="password"
         show-password
+        key="pwd"
         class="pwd"
       ></el-input>
       <span class="alert">{{ message }}</span>
