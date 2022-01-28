@@ -160,8 +160,9 @@ export default {
 
     getCategoryList() {
       categoryList().then((res) => {
-        // console.log(res);
-        this.categoryList = res.data.data.category.list;
+        // console.log(res.data);
+        this.categoryList = res.data[0].data.category.list;
+        // this.categoryList = res.data;
         // 对应目录的所有数据 cateData
         for (let i = 0; i < this.categoryList.length; i++) {
           this.cateData[i] = {
@@ -185,9 +186,10 @@ export default {
     getCateDeta(index) {
       // 先获取图标数据
       const cateItems = this.categoryList[index].maitKey;
+      // console.log(cateItems);
       cateSubIcon(cateItems).then((res) => {
-        // console.log(res);
-        this.cateData[index].cateIcon = res.data.data.list;
+        // console.log(res.data[0].data.list);
+        this.cateData[index].cateIcon = res.data[0].data.list;
       });
       // 获取展示商品数据
       this.getCateGoods("pop", index);
@@ -196,8 +198,9 @@ export default {
     },
     getCateGoods(type, index) {
       const miniWallkey = this.categoryList[index].miniWallkey;
+      // console.log(miniWallkey);
       cateGoods(miniWallkey, type).then((res) => {
-        // console.log(res);
+        // console.log(res.data);
         this.cateData[index].cateGoods[type] = res.data;
       });
     },

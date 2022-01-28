@@ -167,18 +167,18 @@ export default {
     // 获取首页轮播图数据
     getHomeMultidata() {
       homeMultidata().then((res) => {
-        // console.log(res);
-        this.banner = res.data.data.banner.list;
+        // console.log(res.data[0].data.banner.list);
+        this.banner = res.data[0].data.banner.list;
         // console.log(this.banner);
-        this.recommend = res.data.data.recommend.list;
+        this.recommend = res.data[0].data.recommend.list;
       });
     },
     // 获取首页商品数据
     getHomegoods(type) {
       let page = this.goods[type].page + 1;
       homegoods(type, page).then((res) => {
-        // console.log(res.data.data.list);
-        this.goods[type].list.push(...res.data.data.list);
+        // console.log(res.data[0].data.list);
+        this.goods[type].list.push(...res.data[0].data.list);
       });
       this.goods[type].page++;
       // 下拉刷新结束

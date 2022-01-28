@@ -225,7 +225,8 @@ export default {
      */
     getDetailData(id) {
       detailData(id).then((res) => {
-        const detailAllData = res.data.result;
+        // console.log(res);
+        const detailAllData = res.data[0].result;
         // console.log(detailAllData);
         // 详情页轮播图数据
         this.topImage = detailAllData.itemInfo.topImages;
@@ -253,7 +254,7 @@ export default {
     // 推荐数据
     getRecommendData() {
       recommend().then((res) => {
-        this.recommend = res.data.data.list;
+        this.recommend = res.data[0].data.list;
       });
     },
   },
