@@ -35,5 +35,14 @@ export default {
     setCart(state, shopcart) {
         localStorage.setItem("shopcart", JSON.stringify(shopcart));
         state.cartList = shopcart
+    },
+
+    // 搜索历史
+    addHistory(state, key) {
+        // console.log(key);
+        if (state.searchkeys.indexOf(key) === -1) {
+            state.searchkeys.unshift(key);
+            localStorage.setItem("searchkeys", JSON.stringify(state.searchkeys));
+        }
     }
 }

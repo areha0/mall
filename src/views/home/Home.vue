@@ -2,8 +2,16 @@
   <div id="home">
     <nav-bar class="home-nav main-flow">
       <div slot="center" class="home-nav-center">购物街</div>
+      <div slot="right" class="home-nav-right" @click="showSearch">
+        <i class="icon-search"></i>
+      </div>
     </nav-bar>
-
+    <!-- 这里做一个搜索页面/面板, 正常时看不到,但是点击搜索时会出现 -->
+    <home-search
+      v-if="isShowSearch"
+      @closeSearch="closeSearch"
+      @keyInput="keyInput"
+    />
     <!-- 页面下滑到一定程度时显示此tab-control -->
     <tab-control
       :tabtitle="['流行', '新款', '精选']"
@@ -41,6 +49,7 @@
 
 <script>
 import NavBar from "components/commen/navbar/NavBar";
+import HomeSearch from "./homechildren/HomeSearch";
 import HomeSwiper from "./homechildren/HomeSwiper";
 import HomeRecommend from "./homechildren/HomeRecommend";
 import HomeFeature from "./homechildren/HomeFeature";
@@ -49,7 +58,7 @@ import GoodsList from "components/content/goodslist/GoodsList";
 import Scroll from "components/commen/scroll/Scroll";
 import BackTop from "../../components/commen/backtop/BackTop";
 
-import { homeMultidata, homegoods } from "network/home";
+import { homeMultidata, homegoods, homeSearch } from "network/home";
 export default {
   name: "Home",
   data() {
@@ -66,10 +75,12 @@ export default {
       tabContrlTop: 0,
       isTabControlFixed: false,
       meatureOffsetTop: null,
+      isShowSearch: false,
     };
   },
   components: {
     NavBar,
+    HomeSearch,
     HomeSwiper,
     HomeRecommend,
     HomeFeature,
@@ -185,6 +196,18 @@ export default {
       setTimeout(() => {
         this.$refs.scroll.myPullingFinish();
       }, 1000);
+    },
+    showSearch() {
+      this.isShowSearch = true;
+    },
+    closeSearch() {
+      this.isShowSearch = false;
+    },
+    keyInput(key) {
+      // console.log(key);
+      homeSearch(key).then((res) => {
+        console.log(res);
+      });
     },
   },
 };

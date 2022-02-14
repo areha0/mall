@@ -11,6 +11,7 @@ const state = {
     cartList: JSON.parse(localStorage.getItem("shopcart")) || [],
     isHave: false,
     userBaseInfo: JSON.parse(localStorage.getItem("userInfo")) || {},
+    searchkeys: JSON.parse(localStorage.getItem("searchkeys")) || [],
 };
 
 const store = new Vuex.Store({
