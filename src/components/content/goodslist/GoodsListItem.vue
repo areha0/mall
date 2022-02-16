@@ -30,13 +30,18 @@ export default {
         this.$bus.$emit("detailImageLoad");
       } else if (this.$route.path.indexOf("category") !== -1) {
         this.$bus.$emit("cateImageLoad");
+      } else if (this.$route.path.indexOf("search") !== -1) {
+        this.$bus.$emit("searchImageLoad");
       }
     },
 
     // 监听商品被点击
     goodsDetail() {
       // console.log(this.item.iid);
-      if (this.$route.path.indexOf("home") !== -1) {
+      if (
+        this.$route.path.indexOf("home") !== -1 ||
+        this.$route.path.indexOf("search") !== -1
+      ) {
         this.$router.push("/detail/" + this.item.iid);
       }
     },

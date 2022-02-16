@@ -44,5 +44,12 @@ export default {
             state.searchkeys.unshift(key);
             localStorage.setItem("searchkeys", JSON.stringify(state.searchkeys));
         }
+    },
+
+    // 修改当前的搜索关键字
+    changeSearchKey(state, key) {
+        if (key) {
+            state.currentSearchKey = key
+        }
     }
 }

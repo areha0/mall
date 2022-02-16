@@ -1,4 +1,4 @@
-import { request, post } from "./request";
+import { request } from "./request";
 
 export function homeMultidata() {
   return request({
@@ -16,11 +16,3 @@ export function homegoods(type, page) {
   })
 }
 
-export function homeSearch(key) {
-  return post({
-    url: "home/search",
-    data: {
-      key
-    }
-  })
-}

@@ -7,11 +7,7 @@
       </div>
     </nav-bar>
     <!-- 这里做一个搜索页面/面板, 正常时看不到,但是点击搜索时会出现 -->
-    <home-search
-      v-if="isShowSearch"
-      @closeSearch="closeSearch"
-      @keyInput="keyInput"
-    />
+    <home-search v-if="isShowSearch" @closeSearch="closeSearch" />
     <!-- 页面下滑到一定程度时显示此tab-control -->
     <tab-control
       :tabtitle="['流行', '新款', '精选']"
@@ -58,7 +54,7 @@ import GoodsList from "components/content/goodslist/GoodsList";
 import Scroll from "components/commen/scroll/Scroll";
 import BackTop from "../../components/commen/backtop/BackTop";
 
-import { homeMultidata, homegoods, homeSearch } from "network/home";
+import { homeMultidata, homegoods } from "network/home";
 export default {
   name: "Home",
   data() {
@@ -203,12 +199,13 @@ export default {
     closeSearch() {
       this.isShowSearch = false;
     },
-    keyInput(key) {
-      // console.log(key);
-      homeSearch(key).then((res) => {
-        console.log(res);
-      });
-    },
+    // enter(key) {
+    //   // console.log(key);
+    //   // homeSearch(key).then((res) => {
+    //   //   console.log(res);
+    //   // });
+    //   this.$store.commit("changeSearchKey", key);
+    // },
   },
 };
 </script>

@@ -2,6 +2,7 @@
   <div class="search_panel">
     <!-- 进行搜索的地方 -->
     <nav-bar class="search_aria">
+      <span class="search_quit" slot="left" @click="cancel">取消</span>
       <el-input
         placeholder="请输入内容"
         prefix-icon="el-icon-search"
@@ -14,7 +15,7 @@
         slot="center"
       >
       </el-input>
-      <span class="search_quit" slot="right" @click="cancel">取消</span>
+      <span class="search_enter" slot="right" @click="enter">搜索</span>
     </nav-bar>
     <!-- 搜索历史 -->
     <div class="search-history">
@@ -50,15 +51,21 @@ export default {
     cancel() {
       this.$emit("closeSearch");
     },
-    keyInput() {
+    enter() {
       if (this.searchContent.trim() !== "") {
         this.$emit("keyInput", this.searchContent);
         this.$store.commit("addHistory", this.searchContent.trim());
+        this.$store.commit("changeSearchKey", this.searchContent);
       }
+      this.$router.push("/search");
+    },
+    keyInput() {
+      this.currentItem = this.searchContent;
     },
     itemClick(item) {
       this.currentItem = item;
       this.searchContent = item;
+      this.keyInput();
     },
   },
 };
@@ -81,14 +88,15 @@ export default {
   line-height: 44px;
 }
 
-.search_quit {
+.search_quit,
+.search_enter {
   color: #fff;
   font-size: 14px;
 }
 
 .search-history {
   padding-top: 20px;
-  padding-left: 5px;
+  padding-left: 10px;
 }
 .history {
   font-weight: 600;
@@ -111,6 +119,7 @@ export default {
   border: solid #999 1px;
   border-radius: 5px;
   margin-right: 10px;
+  margin-top: 5px;
 }
 .history_list .active {
   color: red;
