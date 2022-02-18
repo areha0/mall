@@ -70,10 +70,13 @@ export default {
               name: userInfo.name,
               phone: userInfo.phone,
             };
+            let initKeys = userInfo.searchHistory;
+            // console.log(initKeys);
             this.$store.commit("setUser", user);
             // ** localStorage来保存我们的购物车, 保证刷新之后不会改变购物车列表
             // 为了实时监测购物车状态, 需要多次修改localStorage
             this.$store.commit("setCart", shopcart);
+            this.$store.commit("setSearch", initKeys);
             this.$router.back();
         }
       });

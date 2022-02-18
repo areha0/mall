@@ -1,4 +1,4 @@
-import { request } from "./request";
+import { request, post } from "./request";
 
 export function homeSearch(key, page) {
   return request({
@@ -6,6 +6,16 @@ export function homeSearch(key, page) {
     params: {
       key,
       page
+    }
+  })
+}
+
+export function historyKeys(username, key) {
+  return post({
+    url: "/login/keys",
+    data: {
+      username,
+      key,
     }
   })
 }

@@ -36,6 +36,10 @@ export default {
         localStorage.setItem("shopcart", JSON.stringify(shopcart));
         state.cartList = shopcart
     },
+    setSearch(state, initKeys) {
+        localStorage.setItem("searchkeys", JSON.stringify(initKeys))
+        state.searchkeys = initKeys
+    },
 
     // 搜索历史
     addHistory(state, key) {
@@ -51,5 +55,17 @@ export default {
         if (key) {
             state.currentSearchKey = key
         }
+    },
+
+    // 修改当前的关键字的顺序
+    changeKeysOrder(state, key) {
+        let index = state.searchkeys.indexOf(key);
+        state.searchkeys.splice(index, 1);
+        state.searchkeys.unshift(key)
+    },
+
+    // 离开搜索页面前的位置
+    setCurrentPosition(state, position) {
+        state.searchPosition = position
     }
 }

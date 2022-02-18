@@ -11,6 +11,7 @@
       class="wrapper"
       ref="scroll"
       :myPullUpLoad="true"
+      @onScroll="onScroll"
       @pullingUp="pullingUp"
     >
       <div class="intro">
@@ -37,6 +38,7 @@ export default {
   data() {
     return {
       goods: { key: "", page: 0, list: [] },
+      currentPosition: 0,
     };
   },
   created() {
@@ -49,6 +51,15 @@ export default {
       refresh();
       // this.$refs.scroll.myScrollRefresh();
     });
+    let position = this.$store.state.searchPosition;
+    // console.log(position);
+    this.$refs.scroll.myScrollTo(0, position, -position * 0.1);
+  },
+  beforeDestroy() {
+    // console.log(this.currentPosition);
+    let position = JSON.parse(JSON.stringify(this.currentPosition));
+    // console.log(position);
+    this.$store.commit("setCurrentPosition", position.y);
   },
   methods: {
     back() {
@@ -71,6 +82,10 @@ export default {
     // 关于scroll的方法
     pullingUp() {
       this.getSearchGoods();
+    },
+    onScroll(position) {
+      // console.log(position);
+      this.currentPosition = position;
     },
     debounce(func, delay) {
       let timer = null;

@@ -12,7 +12,8 @@ const state = {
     isHave: false,
     userBaseInfo: JSON.parse(localStorage.getItem("userInfo")) || {},
     searchkeys: JSON.parse(localStorage.getItem("searchkeys")) || [],
-    currentSearchKey: ""//存储当前的搜索关键字,用于在展示搜索页面进行展示
+    currentSearchKey: "",//存储当前的搜索关键字,用于在展示搜索页面进行展示
+    searchPosition: 0,//离开搜索页面时的位置
 };
 
 const store = new Vuex.Store({

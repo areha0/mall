@@ -31,7 +31,8 @@ export default {
 .goodslist {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-around;
+  /* justify-content: space-around; */
+  justify-content: start;
   padding: 10px 4px;
 }
 .good-list-item {

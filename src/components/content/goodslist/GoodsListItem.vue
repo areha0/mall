@@ -68,11 +68,13 @@ export default {
 }
 .goods-arrage img {
   width: 100%;
+  max-width: 175px;
   border-radius: 14px;
   margin-bottom: 8px;
 }
 .goods-arrage p {
   width: 100%;
+  max-width: 175px;
   font-size: 11px;
   overflow: hidden;
   white-space: nowrap;
@@ -84,6 +86,7 @@ export default {
   justify-content: center;
   align-items: center;
   margin-top: 2px;
+  max-width: 175px;
 }
 .price {
   font-size: 12px;
