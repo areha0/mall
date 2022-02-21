@@ -3,9 +3,43 @@
     <main-nav-bar
       class="detail-navbar"
       @detailNavbarClick="detailNavbarClick"
+      @shareGoods="shareGoods"
       ref="detailNavBar"
     />
 
+    <div class="mask" v-show="isShare" @click="isShare = false"></div>
+    <transition
+      enter-active-class="animate__animated animate__slideInUp"
+      leave-active-class="animate__animated animate__slideOutDown"
+    >
+      <div class="share" v-show="isShare">
+        <div>分享</div>
+        <div class="iconshow">
+          <ShareNetwork
+            network="facebook"
+            url="https://news.vuejs.org/issues/180"
+            title="facebook"
+          >
+            <i class="icon-facebook"></i>
+          </ShareNetwork>
+          <ShareNetwork
+            network="email"
+            url="https://news.vuejs.org/issues/180"
+            title="email"
+          >
+            <i class="icon-email"></i>
+          </ShareNetwork>
+          <ShareNetwork
+            network="twitter"
+            url="https://news.vuejs.org/issues/180"
+            title="twitter"
+          >
+            <i class="icon-twitter"></i>
+          </ShareNetwork>
+        </div>
+        <div class="cancel" @click="isShare = false">取消</div>
+      </div>
+    </transition>
     <scroll ref="detailScroll" @onScroll="onScroll" :myProbType="3">
       <detail-swiper
         :topImage="topImage"
@@ -73,6 +107,7 @@ export default {
       getTemplateTop: null,
       navIndex: 0,
       detailIndex: 0,
+      isShare: false, // 是否弹出分享动画
     };
   },
   components: {
@@ -174,6 +209,10 @@ export default {
         -this.detailTemplateTop[index],
         300
       );
+    },
+
+    shareGoods() {
+      this.isShare = true;
     },
     // 将购物车信息发送数据库
 
@@ -278,5 +317,35 @@ export default {
 }
 .wrapper {
   height: calc(100% - 44px - 49px);
+}
+.mask {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.8);
+  z-index: 13;
+}
+.share {
+  display: flex;
+  width: 100%;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 150px;
+  flex-direction: column;
+  z-index: 14;
+  background-color: #fff;
+  justify-content: space-around;
+}
+.share div {
+  flex: 1;
+  text-align: center;
+  line-height: 50px;
+}
+.iconshow i {
+  margin-left: 10px;
+  font-size: 18px;
 }
 </style>

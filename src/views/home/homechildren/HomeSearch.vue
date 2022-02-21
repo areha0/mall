@@ -3,21 +3,22 @@
     <!-- 进行搜索的地方 -->
     <nav-bar class="search_aria">
       <span class="search_quit" slot="left" @click="cancel">取消</span>
-      <el-input
+      <van-search
         placeholder="请输入内容"
         prefix-icon="el-icon-search"
         class="search_input"
         autofocus
         v-model="searchContent"
         @change="keyInput"
-        aria-placeholder="请输入关键词"
         clearable
         slot="center"
-      >
-      </el-input>
+        background="rgb(247,150,166)"
+        shape="round"
+      />
       <span class="search_enter" slot="right" @click="enter">搜索</span>
     </nav-bar>
     <!-- 搜索历史 -->
+
     <div class="search-history">
       <span class="history">搜索历史</span>
       <span
@@ -46,6 +47,7 @@
 <script>
 import NavBar from "components/commen/navbar/NavBar";
 import { historyKeys } from "network/search";
+import { Dialog } from "vant";
 
 export default {
   name: "HomeSearch",
@@ -58,6 +60,7 @@ export default {
       historyList: this.$store.state.searchkeys,
       currentItem: "",
       isremove: false,
+      isfocuse: false,
     };
   },
   methods: {
@@ -80,8 +83,16 @@ export default {
           this.$store.commit("addHistory", this.searchContent.trim());
         }
         this.$store.commit("changeSearchKey", this.searchContent);
+        this.$router.push("/search");
+      } else {
+        Dialog.alert({
+          message: "请输入有效关键字",
+          theme: "round-button",
+          width: 260,
+        }).then(() => {
+          // on close
+        });
       }
-      this.$router.push("/search");
     },
     changeButton() {
       this.isremove = !this.isremove;
@@ -142,6 +153,9 @@ export default {
   font-size: 14px;
 }
 
+.search_input {
+  height: 30px;
+}
 .search-history {
   padding-top: 20px;
   padding-left: 10px;

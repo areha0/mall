@@ -7,11 +7,19 @@ import FastClick from "fastclick"
 import LazyLoad from "vue-lazyload"
 import ElementUI from "element-ui"
 import 'element-ui/lib/theme-chalk/index.css';
-import axios from "axios"
+// import Mint from 'mint-ui';
+import Vant from 'vant';
+import 'vant/lib/index.css';
+import "animate.css"
+import VueSocialSharing from 'vue-social-sharing'
 
+Vue.use(VueSocialSharing);
+Vue.use(Vant);
 Vue.use(ElementUI);
 FastClick.attach(document.body)
 Vue.use(toast)
+// Vue.use(Mint);
+
 
 // Vue.prototype.HOST = 'http://localhost:3000'
 // Vue.prototype.$axios = axios;

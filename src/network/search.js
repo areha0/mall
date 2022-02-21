@@ -1,11 +1,13 @@
 import { request, post } from "./request";
 
-export function homeSearch(key, page) {
+export function homeSearch(key, page, type, state) {
   return request({
     url: "home/search",
     params: {
       key,
-      page
+      page,
+      type,
+      state
     }
   })
 }

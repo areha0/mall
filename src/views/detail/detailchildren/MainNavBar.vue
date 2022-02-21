@@ -12,6 +12,7 @@
         {{ item }}
       </div>
     </div>
+    <div slot="right" class="icon-share" @click="shareGoods"></div>
   </nav-bar>
 </template>
 
@@ -35,6 +36,10 @@ export default {
     },
     navBackClick() {
       this.$router.back();
+    },
+    shareGoods() {
+      this.isShare = true;
+      this.$emit("shareGoods");
     },
   },
 };
