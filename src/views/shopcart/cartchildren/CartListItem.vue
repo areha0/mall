@@ -1,18 +1,12 @@
 <template>
   <div class="cart-list-item">
-    <div class="select">
-      <input
-        type="checkbox"
-        name="products"
-        :id="'checkbox' + currentIndex"
-        :checked="product.checked"
-      />
-      <label
-        :for="'checkbox' + currentIndex"
-        class="checkbox-label"
-        @click="checkboxClick"
-      ></label>
-    </div>
+    <van-checkbox
+      v-model="product.checked"
+      checked-color="deeppink"
+      icon-size="15px"
+      @click="checkboxClick"
+      class="select"
+    ></van-checkbox>
     <div class="item-img">
       <img :src="product.image" alt="" />
     </div>
@@ -60,8 +54,8 @@ export default {
         checked: this.product.checked,
         state: 3,
       },
-      postcount: null,
-      postchecked: null,
+      postcount: null, // 数量改变时进行请求
+      postchecked: null, // 是否选择时进行请求
     };
   },
   filters: {
@@ -73,6 +67,7 @@ export default {
     },
   },
   mounted() {
+    // 两个都是防抖函数--发送请求
     this.postcount = this.debounce(this.posttoo, 500);
     this.postchecked = this.debounce(this.postthree, 500);
   },
@@ -88,6 +83,7 @@ export default {
       this.postcount();
     },
     checkboxClick(event) {
+      this.product.checked = !this.product.checked;
       this.$store.commit("checkboxClick", {
         checked: this.product.checked,
         index: this.currentIndex,
@@ -135,17 +131,6 @@ export default {
   align-items: center;
   border-bottom: 1px solid rgba(200, 200, 200, 0.4);
 }
-.select {
-  width: 13px;
-  height: 13px;
-  border-radius: 50%;
-  border: 1px solid #666;
-  overflow: hidden;
-  margin: 0;
-  padding: 0;
-  margin-right: 5px;
-  position: relative;
-}
 .checkbox-label {
   position: absolute;
   top: 0;
@@ -154,26 +139,9 @@ export default {
   width: 15px;
   height: 15px;
 }
-input[type="checkbox"]:checked + label::before {
-  display: block;
-  content: "\ea45";
-  font-family: "icomoon" !important;
-  font-size: 12px;
-  width: 15px;
-  height: 15px;
-  line-height: 13px;
-  font-weight: 600;
-  text-align: center;
-  background-color: deeppink;
-  color: #fff;
-  position: absolute;
-  top: 0;
-  left: -1px;
-  display: block;
-}
 
-input[type="checkbox"] {
-  visibility: hidden;
+.select {
+  margin-right: 10px;
 }
 .item-img img {
   width: 80px;

@@ -1,15 +1,12 @@
 <template>
   <div class="cart-bottombar">
     <div class="select-all">
-      <div class="bottom-select">
-        <input
-          type="checkbox"
-          id="bottom-checkbox"
-          :checked="isSelectall"
-          @click="selectAll"
-        />
-        <label for="bottom-checkbox" class="bottom-label"></label>
-      </div>
+      <van-checkbox
+        checked-color="deeppink"
+        icon-size="14px"
+        class="select"
+        v-model="isSelectall"
+      ></van-checkbox>
       <span>全选</span>
     </div>
     <div class="totle-price">合计: ￥{{ totlePrice }}</div>
@@ -63,24 +60,34 @@ export default {
         }, 0);
     },
     // 判断全选按钮是否应该被选中
-    isSelectall() {
-      // const list = JSON.stringify(this.$store.state.cartList);
-      // console.log(list);
-      let list = this.$store.state.cartList;
-      if (JSON.stringify(list) === "{}") list = [];
-      if (list.length == 0) {
-        return false;
-      } else {
-        if (
-          list.find((item) => {
-            return !item.checked;
-          })
-        ) {
+    isSelectall: {
+      get() {
+        let list = this.$store.state.cartList;
+        // console.log(list);
+        if (JSON.stringify(list) === "{}") list = [];
+        if (list.length == 0) {
           return false;
         } else {
-          return true;
+          if (
+            list.find((item) => {
+              return !item.checked;
+            })
+          ) {
+            return false;
+          } else {
+            return true;
+          }
         }
-      }
+      },
+      set(value) {
+        // 注意,由于 isSelectall是一个计算属性,所以不能够直接修改(v-model会 直接修改),所以需要设置一个setter属性
+        if (value) {
+          this.$store.commit("selectAll");
+        } else {
+          this.$store.commit("selectNone");
+        }
+        this.postall();
+      },
     },
   },
   mounted() {
@@ -91,18 +98,6 @@ export default {
     this.postall = this.debounce(this.postfour, 500);
   },
   methods: {
-    // 点击全选按钮
-    selectAll() {
-      if (this.isSelectall) {
-        // console.log(123);
-        this.$store.commit("selectNone");
-        // this.postfalse();
-      } else {
-        this.$store.commit("selectAll");
-        // this.posttrue();
-      }
-      this.postall();
-    },
     topay() {
       if (!this.isSelectall) {
         // console.log("你什么商品都没选择");
@@ -181,43 +176,7 @@ export default {
   font-size: 14px;
   color: #666;
 }
-/* 开始多选框的样式 */
-.bottom-select {
-  margin-right: 5px;
-  width: 13px;
-  height: 13px;
-  border: 1px solid rgba(200, 200, 200, 0.4);
-  border-radius: 50%;
-  position: relative;
-  overflow: hidden;
+.select {
+  margin-right: 10px;
 }
-#bottom-checkbox {
-  visibility: hidden;
-}
-.bottom-label {
-  display: block;
-  width: 13px;
-  height: 13px;
-  background-color: #fff;
-  position: absolute;
-  top: 0px;
-  left: 0px;
-}
-#bottom-checkbox:checked + label::before {
-  content: "\ea45";
-  font-family: "icomoon" !important;
-  display: block;
-  width: 13px;
-  height: 13px;
-  position: absolute;
-  top: 0px;
-  left: 0px;
-  background-color: deeppink;
-  font-size: 12px;
-  line-height: 15px;
-  text-align: center;
-  font-weight: 600;
-  color: #fff;
-}
-/* 最右侧 */
 </style>
