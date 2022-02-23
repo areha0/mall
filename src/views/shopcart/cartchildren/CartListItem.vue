@@ -21,6 +21,7 @@
           >
           <span class="counter">{{ product.count | showCount }}</span>
           <span class="increment" @click="increment">+</span>
+          <i class="icon-delete" @click="deletegoods"></i>
         </div>
       </div>
     </div>
@@ -45,11 +46,13 @@ export default {
   data() {
     return {
       datacount: {
+        username: this.$store.state.userBaseInfo.name,
         id: this.product.id,
         count: this.product.count,
         state: 2,
       },
       datachecked: {
+        username: this.$store.state.userBaseInfo.name,
         id: this.product.id,
         checked: this.product.checked,
         state: 3,
@@ -82,6 +85,17 @@ export default {
       this.$store.commit("increment", this.currentIndex);
       this.postcount();
     },
+    deletegoods() {
+      // console.log(this.currentIndex);
+      let list = this.$store.state.cartList;
+      let username = this.$store.state.userBaseInfo.name;
+      let id = list[this.currentIndex].id;
+      let state = 5;
+      let params = { username, id, state };
+      list.splice(this.currentIndex, 1);
+      localStorage.setItem("shopcart", JSON.stringify(list));
+      this.postdelete(params);
+    },
     checkboxClick(event) {
       this.product.checked = !this.product.checked;
       this.$store.commit("checkboxClick", {
@@ -102,6 +116,11 @@ export default {
     posttoo() {
       this.datacount.count = this.product.count;
       this.post(this.datacount);
+    },
+    postdelete(value) {
+      postShop(value).then((res) => {
+        console.log(res);
+      });
     },
     // 防抖函数
     debounce(func, delay) {
@@ -200,5 +219,8 @@ export default {
 .disable {
   pointer-events: none;
   color: #aaa;
+}
+.icon-delete {
+  margin-left: 15px;
 }
 </style>
