@@ -1,5 +1,6 @@
 import Vue from "vue";
 import Router from "vue-router"
+import { Notify } from 'vant';
 
 Vue.use(Router);
 
@@ -55,11 +56,15 @@ const router = new Router({
 
 // 前置导航守卫, 如果在已经登录的状态下, 再跳转到登录/注册界面就不允许
 router.beforeEach((to, from, next) => {
+  if (!localStorage.getItem("userInfo")) {
+    localStorage.setItem("userInfo", "{}")
+  };
   let token = JSON.parse(localStorage.getItem("userInfo")).name;
-  let disable = ["/login", "register"]
+  let disable = ["/login", "/register"]
   if (token && disable.indexOf(to.path) !== -1) {
     // 你要想跳出去就把你返回到首页
-    alert("您已经完成了登录");
+    // alert("您已经完成了登录");
+    Notify({ type: 'warning', message: '您已经完成了登录' });
     // console.log(from);
     next("/home")
     return
