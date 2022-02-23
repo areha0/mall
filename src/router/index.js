@@ -32,6 +32,10 @@ const routes = [
     component: () => import("views/profile/Profile")
   },
   {
+    path: "/address",
+    component: () => import("views/address/Address")
+  },
+  {
     path: "/detail/:goodsid",
     component: () => import("../views/detail/Detail")
   },

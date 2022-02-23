@@ -1,7 +1,12 @@
 <template>
   <div class="profile-list">
     <!-- 假装数据都是从profile页面中传过来的 -->
-    <div class="list-item" v-for="(item, index) in list" :key="index">
+    <div
+      class="list-item"
+      v-for="(item, index) in list"
+      :key="index"
+      @click="tonext(index)"
+    >
       <i class="icon-item">{{ item.icon }}</i>
       <span>{{ item.title }}</span>
     </div>
@@ -17,6 +22,14 @@ export default {
       default() {
         return [];
       },
+    },
+  },
+  methods: {
+    tonext(index) {
+      switch (index) {
+        case 0:
+          this.$router.push("/address");
+      }
     },
   },
 };

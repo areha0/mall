@@ -12,7 +12,6 @@
     </user-info>
     <profile-account />
     <profile-list :list="firstList" />
-    <profile-list :list="secondList" />
   </div>
 </template>
 
@@ -33,11 +32,9 @@ export default {
   data() {
     return {
       firstList: [
-        { icon: "", title: "我的消息" },
-        { icon: "", title: "积分商城" },
+        { icon: "", title: "我的地址" },
+        { icon: "", title: "我的订单" },
         { icon: "", title: "会员卡" },
-      ],
-      secondList: [
         { icon: "", title: "我的购物车" },
         { icon: "", title: "下载购物车APP" },
       ],

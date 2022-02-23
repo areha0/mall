@@ -36,10 +36,10 @@ export default {
       if (!userInfo.name) {
         this.$router.push("/login");
       } else {
-        alert("已登录过了");
-        this.$store.commit("setUser", {});
-        this.$store.commit("setCart", []);
-        this.$store.commit("setSearch", []);
+        // alert("已登录过了");
+        // this.$store.commit("setUser", {});
+        // this.$store.commit("setCart", []);
+        // this.$store.commit("setSearch", []);
       }
     },
   },

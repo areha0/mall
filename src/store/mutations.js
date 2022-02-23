@@ -67,5 +67,48 @@ export default {
     // 离开搜索页面前的位置
     setCurrentPosition(state, position) {
         state.searchPosition = position
+    },
+
+    // 增加收货地址
+    addAddress(state, address) {
+        state.addressList.push(address);
+        localStorage.setItem("addressList", JSON.stringify(state.addressList))
+    },
+    // 删除收货地址
+    removeAddress(state, index) {
+        state.addressList.splice(index, 1);
+        localStorage.setItem("addressList", JSON.stringify(state.addressList))
+    },
+    // 修改地址
+    editAddress(state, obj) {
+        let { content, index } = obj;
+        state.addressList.splice(index, 1, content);
+        localStorage.setItem("addressList", JSON.stringify(state.addressList))
+    },
+    // 修改默认值,
+    editDefault(state, index) {
+        // console.log(index, state.addressList);
+        if (index >= 0) state.addressList[index].isDefault = true;
+        if (state.addressList.length) {
+            for (let i = 0; i < state.addressList.length; i++) {
+                if (i !== index) {
+                    state.addressList[i].isDefault = false;
+                }
+            };
+        }
+        // console.log(index, state.addressList);
+        localStorage.setItem("addressList", JSON.stringify(state.addressList))
+    },
+    // 修改地址顺序,让默认地址放在最前面
+    orderAddress(state, index) {
+        let address = state.addressList.splice(index, 1);
+        // console.log(address);
+        state.addressList.unshift(...address);
+        localStorage.setItem("addressList", JSON.stringify(state.addressList))
+    },
+    // 如果是初次添加并选择默认,直接添加到最最开头
+    addAddressFirst(state, address) {
+        state.addressList.unshift(address);
+        localStorage.setItem("addressList", JSON.stringify(state.addressList))
     }
 }
