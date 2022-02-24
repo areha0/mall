@@ -61,22 +61,25 @@ export default {
             //   name: userInfo.name,
             //   phone: userInfo.phone,
             // };
-            let shopcart = userInfo.shopcart;
+            let { shopcart, name, phone, searchHistory, addressList } =
+              userInfo;
+            // let shopcart = userInfo.shopcart;
             // console.log(this.$store.state.userBaseInfo);
             // console.log(this.$store.state.cartList);
 
             // ** 这里我们使用localStorage来保存我们的用户登录状态, 保证刷新之后不改变用户登录状态
             let user = {
-              name: userInfo.name,
-              phone: userInfo.phone,
+              name,
+              phone,
             };
-            let initKeys = userInfo.searchHistory;
+            // let initKeys = userInfo.searchHistory;
             // console.log(initKeys);
             this.$store.commit("setUser", user);
             // ** localStorage来保存我们的购物车, 保证刷新之后不会改变购物车列表
             // 为了实时监测购物车状态, 需要多次修改localStorage
             this.$store.commit("setCart", shopcart);
-            this.$store.commit("setSearch", initKeys);
+            this.$store.commit("setSearch", searchHistory);
+            this.$store.commit("setAddress", addressList);
             this.$router.back();
         }
       });
