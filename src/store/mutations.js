@@ -1,5 +1,4 @@
 import { postaddress } from "network/address"
-import { _postaddress } from "../utils/postaddress"
 export default {
     // 每次在修改vuex时都需要对localStorage进行操作, 以保存当前的状态
     addTocart(state, payload) {

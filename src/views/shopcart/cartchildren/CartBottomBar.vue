@@ -16,6 +16,8 @@
 
 <script>
 import { postShop } from "network/user/shopcart";
+import { mapGetters } from "vuex";
+import { Toast } from "vant";
 export default {
   name: "CartBottomBar",
   data() {
@@ -36,6 +38,9 @@ export default {
     };
   },
   computed: {
+    ...mapGetters({
+      select: "cartSelect",
+    }),
     totlePrice() {
       let list = this.$store.state.cartList;
       if (JSON.stringify(list) === "{}") list = [];
@@ -98,12 +103,13 @@ export default {
     this.postall = this.debounce(this.postfour, 500);
   },
   methods: {
+    // 进入确认订单页面, 首先要保证至少有一个被选中,还要知道选中的是哪些
     topay() {
-      if (!this.isSelectall) {
-        // console.log("你什么商品都没选择");
-        // console.log(this.$toast.show);
-        this.$toast.show("你什么商品都没选择", 2000);
+      if (!this.select.length) {
+        Toast("请至少选择一件商品");
+        return;
       }
+      this.$router.push("/ensureorder");
     },
 
     post(value) {

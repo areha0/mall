@@ -50,6 +50,10 @@ const routes = [
   {
     path: "/search",
     component: () => import("views/search/Search")
+  },
+  {
+    path: "/ensureorder",
+    component: () => import("views/ensureorder/EnsureOrder")
   }
 ]
 
