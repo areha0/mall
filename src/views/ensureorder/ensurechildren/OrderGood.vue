@@ -1,16 +1,19 @@
 <template>
   <div class="order-good">
     <van-card
-      num="2"
-      price="2.00"
-      desc="描述信息"
-      title="商品标题"
-      thumb="https://img01.yzcdn.cn/vant/ipad.jpeg"
+      :num="item.count"
+      :price="item.price"
+      :desc="item.desc"
+      :title="item.title"
+      :thumb="item.image"
       class="good-card"
     />
-    <div class="good-note">
+    <div class="good-note" @click="editnote">
       <span>订单备注</span>
-      <span class="note">无备注<i class="icon-note"></i></span>
+      <div class="note">
+        <span class="span-note">{{ item.note || "无备注" }}</span>
+        <i class="icon-note"></i>
+      </div>
     </div>
   </div>
 </template>
@@ -18,6 +21,16 @@
 <script>
 export default {
   name: "OrderGood",
+  props: {
+    item: Object,
+  },
+  computed: {},
+
+  methods: {
+    editnote() {
+      this.$emit("editnote");
+    },
+  },
 };
 </script>
 
@@ -34,10 +47,19 @@ export default {
 .good-note {
   display: flex;
   justify-content: space-between;
-  padding: 10px 10px;
+  padding: 15px;
   font-size: 14px;
 }
 .note {
   color: #aaa;
+}
+.span-note {
+  display: inline-block;
+  text-align: right;
+  font-size: 14px;
+  width: 200px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 </style>

@@ -131,5 +131,10 @@ export default {
     setAddress(state, addressList) {
         state.addressList = addressList;
         localStorage.setItem("addressList", JSON.stringify(addressList));
+    },
+    // 重置订单
+    ressetorder(state) {
+        let length = state.currentOrder.length;
+        state.currentOrder.splice(0, length)
     }
 }

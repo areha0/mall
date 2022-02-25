@@ -15,6 +15,7 @@ const state = {
     currentSearchKey: "",//存储当前的搜索关键字,用于在展示搜索页面进行展示
     searchPosition: 0,//离开搜索页面时的位置
     addressList: JSON.parse(localStorage.getItem("addressList")) || [],//地址管理
+    currentOrder: JSON.parse(localStorage.getItem("currentOrder")) || [],//当前订单
 };
 
 const store = new Vuex.Store({

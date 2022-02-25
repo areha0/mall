@@ -14,6 +14,12 @@ export default {
     return list
   },
   defaultAddress(state) {
+    if (state.addressList.length) {
+      return state.addressList[0]
+    } else {
+      return []
+    }
+  },
 
-  }
+
 }

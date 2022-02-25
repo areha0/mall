@@ -1,12 +1,13 @@
 <template>
   <div class="order-pay">
-    <div v-for="item in paytype" :key="item" class="single-type">
-      <span class="span-type">{{ item }}</span>
+    <div v-for="(item, index) in paytype" :key="index" class="single-type">
+      <span class="span-type">{{ item.title }}</span>
       <van-checkbox
-        v-model="checked"
+        v-model="item.ischecked"
         checked-color="#ee0a24"
         class="checkbox"
         icon-size="14px"
+        @click="changebox(index)"
       />
     </div>
   </div>
@@ -17,9 +18,19 @@ export default {
   name: "OrderPay",
   data() {
     return {
-      checked: false,
-      paytype: ["支付宝支付", "微信支付"],
+      paytype: [
+        { title: "支付宝支付", ischecked: true },
+        { title: "微信支付", ischecked: false },
+      ],
+      currenttype: 0, //当前所选的方式
     };
+  },
+  methods: {
+    changebox(index) {
+      let another = index === 0 ? 1 : 0;
+      this.paytype[another].ischecked = false;
+      this.paytype[index].ischecked = true;
+    },
   },
 };
 </script>

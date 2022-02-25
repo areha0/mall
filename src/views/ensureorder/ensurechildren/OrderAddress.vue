@@ -3,10 +3,10 @@
     <div class="localed">
       <i class="icon-local"></i>
       <div class="address_info">
-        <span class="address">钱江新村一区52幢</span>
+        <span class="address">{{ address.addressDetail || "请添加地址" }}</span>
         <div class="userinfo">
-          <span class="name">王硕</span>
-          <span class="phone">13032925332</span>
+          <span class="name">{{ address.name || "姓名" }}</span>
+          <span class="phone">{{ address.tel || "电话" }}</span>
         </div>
       </div>
     </div>
@@ -18,8 +18,20 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
 export default {
   name: "OrderAddress",
+  data() {
+    return {};
+  },
+  computed: {
+    ...mapGetters({
+      address: "defaultAddress",
+    }),
+  },
+  mounted() {
+    // console.log(this.address);
+  },
 };
 </script>
 
