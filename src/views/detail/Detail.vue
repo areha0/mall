@@ -79,6 +79,7 @@ import BackTop from "components/commen/backtop/BackTop";
 import DetailBottomBar from "./detailchildren/DetailBottomBar";
 import { postShop } from "network/user/shopcart";
 import { mapState } from "vuex";
+import { postOrder } from "network/order";
 
 import {
   detailData,
@@ -137,6 +138,7 @@ export default {
   computed: {
     ...mapState({
       order: "currentOrder",
+      user: "userBaseInfo",
     }),
   },
   mounted() {
@@ -265,10 +267,24 @@ export default {
       product.source = "detail";
 
       this.$store.commit("setOrder", product);
+      this.orderhttp();
       this.$router.push("/ensureorder");
     },
     post(value) {
       postShop(value).then((res) => console.log(res));
+    },
+
+    orderhttp() {
+      // 发送第一次请求, 此时的状态为1, 表示未支付
+      let list = this.order;
+      let state = 1;
+      let username = this.user.name;
+      let params = { list, state, username };
+      postOrder(params).then((res) => {
+        console.log(res.data.ordernum);
+        // this.ordernum = res.data.ordernum;
+        this.$store.commit("setordernum", res.data.ordernum);
+      });
     },
 
     // 防抖函数

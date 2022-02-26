@@ -152,5 +152,11 @@ export default {
             }
         }
         localStorage.setItem("shopcart", JSON.stringify(state.cartList));
+    },
+
+    // 设置订单号
+    setordernum(state, value) {
+        state.currentordernum = value;
+        localStorage.setItem("ordernum", JSON.stringify(state.currentordernum))
     }
 }

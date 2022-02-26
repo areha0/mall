@@ -17,7 +17,7 @@ export default {
     if (state.addressList.length) {
       return state.addressList[0]
     } else {
-      return []
+      return {}
     }
   },
 

@@ -54,6 +54,10 @@ const routes = [
   {
     path: "/ensureorder",
     component: () => import("views/ensureorder/EnsureOrder")
+  },
+  {
+    path: "/payment",
+    component: () => import("views/payment/Payment")
   }
 ]
 

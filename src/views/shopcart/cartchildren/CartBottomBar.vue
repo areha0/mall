@@ -17,6 +17,7 @@
 <script>
 import { postShop } from "network/user/shopcart";
 import { mapGetters, mapState } from "vuex";
+import { postOrder } from "network/order";
 import { Toast } from "vant";
 export default {
   name: "CartBottomBar",
@@ -43,6 +44,7 @@ export default {
     }),
     ...mapState({
       order: "currentOrder",
+      user: "userBaseInfo",
     }),
     totlePrice() {
       let list = this.$store.state.cartList;
@@ -120,7 +122,22 @@ export default {
       });
       console.log(this.order);
       localStorage.setItem("currentOrder", JSON.stringify(this.order));
+      this.orderhttp();
       this.$router.push("/ensureorder");
+    },
+
+    // 订单请求
+    orderhttp() {
+      // 发送第一次请求, 此时的状态为1, 表示未支付
+      let list = this.order;
+      let state = 1;
+      let username = this.user.name;
+      let params = { list, state, username };
+      postOrder(params).then((res) => {
+        console.log(res.data.ordernum);
+        // this.ordernum = res.data.ordernum;
+        this.$store.commit("setordernum", res.data.ordernum);
+      });
     },
 
     post(value) {

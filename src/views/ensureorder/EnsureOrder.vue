@@ -74,6 +74,7 @@ import OrderPay from "./ensurechildren/OrderPay";
 import Scroll from "components/commen/scroll/Scroll";
 import { postOrder } from "network/order";
 import { postShop } from "network/user/shopcart";
+import { Toast } from "vant";
 export default {
   name: "EnsureOrder",
   components: {
@@ -88,7 +89,6 @@ export default {
       isnote: false, //是否编辑备注
       currentgood: -1, //表示当前点击的商品
       currenttype: "ali", //当前选择的支付方式,默认为支付宝, ali,wx
-      ordernum: "", //序列号
     };
   },
   computed: {
@@ -97,9 +97,11 @@ export default {
       user: "userBaseInfo",
       cart: "cartList",
       uesr: "userBaseInfo",
+      ordernum: "currentordernum",
     }),
     ...mapGetters({
       select: "cartSelect",
+      address: "defaultAddress",
     }),
     goodsnum() {
       let num = 0;
@@ -115,11 +117,18 @@ export default {
       });
       return price * 100;
     },
+    goodsname() {
+      let arr = [];
+      this.order.forEach((item) => {
+        arr.push(item.title);
+      });
+      return arr.join(",");
+    },
   },
 
   created() {
-    // 发送第一次请求
-    this.orderhttp();
+    // 发送第一次请求， 将发送请求放到购买按钮处， 因为选择地址后依旧会生成订单
+    // this.orderhttp();
   },
   mounted() {
     console.log(this.order);
@@ -153,28 +162,18 @@ export default {
       console.log(this.order);
     },
 
-    orderhttp() {
-      // 发送第一次请求, 此时的状态为1, 表示未支付
-      let list = this.order;
-      let state = 1;
-      let username = this.user.name;
-      let params = { list, state, username };
-      postOrder(params).then((res) => {
-        console.log(res.data.ordernum);
-        this.ordernum = res.data.ordernum;
-      });
-    },
-
     orderhttp2() {
       // 提交订单时, 此时的状态为待支付
       let state = 2;
       let ordernum = this.ordernum;
       let username = this.user.name;
       let paytype = this.currenttype;
+      let goods = this.goodsname;
       let totleprice = (this.goodsprice / 100).toFixed(2);
-      let params = { state, ordernum, username, paytype, totleprice };
+      let params = { state, ordernum, username, paytype, totleprice, goods };
       postOrder(params).then((res) => {
-        console.log(res);
+        // console.log(res.data.data.url);
+        window.location.href = res.data.data.url;
       });
     },
 
@@ -189,7 +188,12 @@ export default {
     // 2. 删除购物车中的商品
     // ** 关键点在于知道是从详情页直接过来的还是从购物车过来的
     onSubmit() {
+      if (!this.address) {
+        Toast("请添加地址");
+        return;
+      }
       // console.log(123);
+      // 在这里发送请求, 同时返回支付连接
       this.orderhttp2();
       if (this.order.length === 1 && this.order[0].source === "detail") {
         console.log("不删除购物车数据");
