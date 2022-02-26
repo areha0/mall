@@ -61,7 +61,7 @@
     </scroll>
 
     <back-top @click.native="backToP" v-if="isShowBacktop" />
-    <detail-bottom-bar @addCart="addCart" />
+    <detail-bottom-bar @addCart="addCart" @topay="topay" />
   </div>
 </template> 
 
@@ -78,6 +78,7 @@ import GoodsList from "components/content/goodslist/GoodsList";
 import BackTop from "components/commen/backtop/BackTop";
 import DetailBottomBar from "./detailchildren/DetailBottomBar";
 import { postShop } from "network/user/shopcart";
+import { mapState } from "vuex";
 
 import {
   detailData,
@@ -132,6 +133,11 @@ export default {
 
     // 推荐商品数据
     this.getRecommendData();
+  },
+  computed: {
+    ...mapState({
+      order: "currentOrder",
+    }),
   },
   mounted() {
     this.imgRefresh = this.debounce(
@@ -243,6 +249,23 @@ export default {
 
       // 这里传输的数据都是需要插入的数据 state=1
       // 这里有一个小bug, 添加过的数据, 依然会添加
+    },
+    // 购买
+    topay() {
+      // console.log(12);
+      this.$store.commit("ressetorder");
+      // 商品的基本信息
+      const product = {};
+      product.id = this.iid;
+      product.image = this.topImage[0];
+      product.title = this.goodsInfo.title;
+      product.desc = this.goodsInfo.desc;
+      product.price = this.goodsInfo.lowNowPrice;
+      product.count = 1;
+      product.source = "detail";
+
+      this.$store.commit("setOrder", product);
+      this.$router.push("/ensureorder");
     },
     post(value) {
       postShop(value).then((res) => console.log(res));

@@ -20,7 +20,7 @@
     </div>
     <div class="bottom-right">
       <div @click="addCart">加入购物车</div>
-      <div>购买</div>
+      <div @click="topay">购买</div>
     </div>
   </div>
 </template>
@@ -40,6 +40,9 @@ export default {
     // 加入购物车操作
     addCart() {
       this.$emit("addCart");
+    },
+    topay() {
+      this.$emit("topay");
     },
   },
 };

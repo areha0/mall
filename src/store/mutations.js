@@ -136,5 +136,21 @@ export default {
     ressetorder(state) {
         let length = state.currentOrder.length;
         state.currentOrder.splice(0, length)
+    },
+
+    // 从详情页面进入时,此时的当前订单
+    setOrder(state, product) {
+        state.currentOrder.push(product);
+        localStorage.setItem("currentOrder", JSON.stringify(state.currentOrder));
+    },
+
+    // 删除订单页中的商品(购物车)
+    removegoods(state) {
+        for (let i = state.cartList.length - 1; i >= 0; i--) {
+            if (state.cartList[i].checked) {
+                state.cartList.splice(i, 1)
+            }
+        }
+        localStorage.setItem("shopcart", JSON.stringify(state.cartList));
     }
 }

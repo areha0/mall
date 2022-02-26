@@ -52,7 +52,7 @@
         </div>
       </van-popup>
       <!-- 支付方式 -->
-      <order-pay class="order-pay" />
+      <order-pay class="order-pay" @changebox="changebox" />
     </scroll>
     <!-- 确认订单 -->
     <van-submit-bar
@@ -72,6 +72,8 @@ import OrderAddress from "./ensurechildren/OrderAddress";
 import OrderGood from "./ensurechildren/OrderGood";
 import OrderPay from "./ensurechildren/OrderPay";
 import Scroll from "components/commen/scroll/Scroll";
+import { postOrder } from "network/order";
+import { postShop } from "network/user/shopcart";
 export default {
   name: "EnsureOrder",
   components: {
@@ -85,29 +87,39 @@ export default {
       notemessage: "",
       isnote: false, //是否编辑备注
       currentgood: -1, //表示当前点击的商品
+      currenttype: "ali", //当前选择的支付方式,默认为支付宝, ali,wx
+      ordernum: "", //序列号
     };
   },
   computed: {
     ...mapState({
       order: "currentOrder",
+      user: "userBaseInfo",
+      cart: "cartList",
+      uesr: "userBaseInfo",
     }),
     ...mapGetters({
       select: "cartSelect",
     }),
     goodsnum() {
       let num = 0;
-      this.select.forEach((item) => {
+      this.order.forEach((item) => {
         num += item.count;
       });
       return `共 ${num} 件`;
     },
     goodsprice() {
       let price = 0;
-      this.select.forEach((item) => {
+      this.order.forEach((item) => {
         price += item.count * item.price;
       });
       return price * 100;
     },
+  },
+
+  created() {
+    // 发送第一次请求
+    this.orderhttp();
   },
   mounted() {
     console.log(this.order);
@@ -115,9 +127,6 @@ export default {
   methods: {
     onClickLeft() {
       this.$router.back();
-    },
-    onSubmit() {
-      console.log(123);
     },
     editAddress() {
       this.$router.push("/address");
@@ -142,6 +151,62 @@ export default {
       }
 
       console.log(this.order);
+    },
+
+    orderhttp() {
+      // 发送第一次请求, 此时的状态为1, 表示未支付
+      let list = this.order;
+      let state = 1;
+      let username = this.user.name;
+      let params = { list, state, username };
+      postOrder(params).then((res) => {
+        console.log(res.data.ordernum);
+        this.ordernum = res.data.ordernum;
+      });
+    },
+
+    orderhttp2() {
+      // 提交订单时, 此时的状态为待支付
+      let state = 2;
+      let ordernum = this.ordernum;
+      let username = this.user.name;
+      let paytype = this.currenttype;
+      let totleprice = (this.goodsprice / 100).toFixed(2);
+      let params = { state, ordernum, username, paytype, totleprice };
+      postOrder(params).then((res) => {
+        console.log(res);
+      });
+    },
+
+    // 改变支付方式
+    changebox(type) {
+      console.log(type);
+      this.currenttype = type;
+    },
+
+    // 提交订单
+    // 1. 向后端发送请求,修改订单状态,此时的订单状态为2,表示待支付
+    // 2. 删除购物车中的商品
+    // ** 关键点在于知道是从详情页直接过来的还是从购物车过来的
+    onSubmit() {
+      // console.log(123);
+      this.orderhttp2();
+      if (this.order.length === 1 && this.order[0].source === "detail") {
+        console.log("不删除购物车数据");
+        return;
+      } else {
+        // 在这里删除购物车中的数据,
+        this.$store.commit("removegoods");
+        console.log(this.cart);
+        //删除数据库中的商品, , 此时的状态码为6, 直接将购物车中被选中的商品删除
+        let username = this.user.name;
+        let state = 6;
+        // let params = { username, state };
+        // console.log(params);
+        postShop({ username, state }).then((res) => {
+          console.log(res);
+        });
+      }
     },
   },
 };

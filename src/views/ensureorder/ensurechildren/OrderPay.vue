@@ -19,8 +19,8 @@ export default {
   data() {
     return {
       paytype: [
-        { title: "支付宝支付", ischecked: true },
-        { title: "微信支付", ischecked: false },
+        { title: "支付宝支付", ischecked: true, type: "ali" },
+        { title: "微信支付", ischecked: false, type: "wx" },
       ],
       currenttype: 0, //当前所选的方式
     };
@@ -30,6 +30,8 @@ export default {
       let another = index === 0 ? 1 : 0;
       this.paytype[another].ischecked = false;
       this.paytype[index].ischecked = true;
+      let type = this.paytype[index].type;
+      this.$emit("changebox", type);
     },
   },
 };
