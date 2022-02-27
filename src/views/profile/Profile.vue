@@ -1,7 +1,8 @@
 <template>
   <div id="profile">
+    <user-detail v-show="isshow" @closeshow="closeshow" />
     <profile-nav-bar />
-    <user-info>
+    <user-info @changepage="changepage">
       <img alt="" slot="img" v-if="userInfo && userInfo.avator" />
       <span slot="username" v-if="userInfo && userInfo.name">{{
         userInfo.name
@@ -20,6 +21,7 @@ import ProfileNavBar from "./profilechildren/ProfileNavBar";
 import UserInfo from "./profilechildren/UserInfo";
 import ProfileAccount from "./profilechildren/ProfileAccount";
 import ProfileList from "./profilechildren/ProfileList";
+import UserDetail from "./profilechildren/UserDetail";
 
 export default {
   name: "Profile",
@@ -28,6 +30,7 @@ export default {
     UserInfo,
     ProfileAccount,
     ProfileList,
+    UserDetail,
   },
   data() {
     return {
@@ -35,11 +38,20 @@ export default {
         { icon: "", title: "我的地址" },
         { icon: "", title: "我的订单" },
       ],
+      isshow: false, // 是否显示用户详细信息
     };
   },
   computed: {
     userInfo() {
       return this.$store.state.userBaseInfo;
+    },
+  },
+  methods: {
+    changepage() {
+      this.isshow = true;
+    },
+    closeshow() {
+      this.isshow = false;
     },
   },
 };

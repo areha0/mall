@@ -104,6 +104,7 @@ export default {
       this.currentItem = item;
 
       if (this.isremove == false) {
+        // 如果不是删除的话,就把这个值传给搜索框
         this.searchContent = item;
         this.keyInput();
       }
@@ -112,18 +113,28 @@ export default {
       let username = this.$store.state.userBaseInfo.name;
       let key = this.$store.state.searchkeys;
       let index = key.indexOf(item);
-      key.splice(index, 1);
       if (this.isremove == false) {
+        key.splice(index, 1);
         key.unshift(item);
         historyKeys(username, key);
         // this.$store.commit("changeKeysOrder", item);
       } else {
         // 删除搜索历史
-        this.searchContent = "";
-        this.currentItem = "";
-        historyKeys(username, key).then((res) => {
-          console.log(res);
-        });
+        Dialog.confirm({
+          message: "是否要删除当前搜索历史",
+        })
+          .then(() => {
+            // on confirm
+            key.splice(index, 1);
+            this.searchContent = "";
+            this.currentItem = "";
+            historyKeys(username, key).then((res) => {
+              console.log(res);
+            });
+          })
+          .catch(() => {
+            // on cancel
+          });
       }
     },
   },

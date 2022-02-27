@@ -30,6 +30,7 @@
 
 <script>
 import { postShop } from "network/user/shopcart";
+import { Dialog } from "vant";
 export default {
   name: "CartListItem",
   props: {
@@ -87,14 +88,24 @@ export default {
     },
     deletegoods() {
       // console.log(this.currentIndex);
-      let list = this.$store.state.cartList;
-      let username = this.$store.state.userBaseInfo.name;
-      let id = list[this.currentIndex].id;
-      let state = 5;
-      let params = { username, id, state };
-      list.splice(this.currentIndex, 1);
-      localStorage.setItem("shopcart", JSON.stringify(list));
-      this.postdelete(params);
+      Dialog.confirm({
+        message: "确定要删除当前商品",
+      })
+        .then(() => {
+          // on confirm
+          let list = this.$store.state.cartList;
+          let username = this.$store.state.userBaseInfo.name;
+          let id = list[this.currentIndex].id;
+          let state = 5;
+          let params = { username, id, state };
+
+          list.splice(this.currentIndex, 1);
+          localStorage.setItem("shopcart", JSON.stringify(list));
+          this.postdelete(params);
+        })
+        .catch(() => {
+          // on cancel
+        });
     },
     checkboxClick(event) {
       this.product.checked = !this.product.checked;

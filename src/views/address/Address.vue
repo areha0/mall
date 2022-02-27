@@ -49,6 +49,7 @@
 import AddressCard from "./addresschildren/AddressCard.vue";
 import EditAddress from "./addresschildren/EditAddress.vue";
 import { mapState } from "vuex";
+import { Dialog } from "vant";
 export default {
   name: "Address",
   components: {
@@ -85,7 +86,16 @@ export default {
     },
     // 删除地址
     removeCard(index) {
-      this.$store.commit("removeAddress", index);
+      Dialog.confirm({
+        message: "确定要删除该地址",
+      })
+        .then(() => {
+          // on confirm
+          this.$store.commit("removeAddress", index);
+        })
+        .catch(() => {
+          // on cancel
+        });
     },
     // 选中为默认地址
     checkedclick(index) {

@@ -39,6 +39,7 @@
 <script>
 import { mapState, mapGetters } from "vuex";
 import { postOrder } from "network/order";
+import { Dialog } from "vant";
 export default {
   name: "SignalOrder",
   props: {
@@ -62,22 +63,27 @@ export default {
       window.location.href = payurl;
     },
     toremove() {
-      // console.log("删除");
-      let ordernum = this.item.ordernum;
-      // this.$emit("orderremove", ordernum);
-      // 删除订单,状态可能是2,也可能是3,需要传入用户和订单号
-      // console.log(ordernum);
-      let username = this.user.name;
-      let state = 4;
-      let params = { username, state, ordernum };
-      // console.log(params);
-      // 删除vuex中的数据
-      this.$store.commit("removeorder", ordernum);
+      Dialog.confirm({
+        message: "是否确定删除该订单",
+      })
+        .then(() => {
+          // on confirm
+          let ordernum = this.item.ordernum;
+          // 删除订单,状态可能是2,也可能是3,需要传入用户和订单号
+          let username = this.user.name;
+          let state = 4;
+          let params = { username, state, ordernum };
+          // 删除vuex中的数据
+          this.$store.commit("removeorder", ordernum);
 
-      // 发送请求,删除数据
-      postOrder(params).then((res) => {
-        console.log(res);
-      });
+          // 发送请求,删除数据
+          postOrder(params).then((res) => {
+            console.log(res);
+          });
+        })
+        .catch(() => {
+          // on cancel
+        });
     },
   },
 };

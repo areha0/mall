@@ -17,8 +17,6 @@
         :key="index"
         :item="item"
         @click.native="topayedorder(index)"
-        :orderpay="topay"
-        :orderremove="toremove"
       />
     </scroll>
   </div>

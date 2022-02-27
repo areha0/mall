@@ -80,7 +80,7 @@ import DetailBottomBar from "./detailchildren/DetailBottomBar";
 import { postShop } from "network/user/shopcart";
 import { mapState } from "vuex";
 import { postOrder } from "network/order";
-
+import { Toast } from "vant";
 import {
   detailData,
   GoodsInfo,
@@ -89,8 +89,7 @@ import {
   Params,
   Comment,
   recommend,
-} from "../../network/detail";
-import { cateGoods } from "../../network/category";
+} from "network/detail";
 
 export default {
   name: "Detail",
@@ -242,7 +241,8 @@ export default {
       // 这里要获得 isHave中返回的结果, 所以actions中的方法要返回一个promise
       this.$store.dispatch("ifHave", product).then((res) => {
         // console.log(this.$toast);
-        this.$toast.show(res.message, 2000);
+        Toast(res.message);
+        // this.$toast.show(res.message, 2000);
         product.username = name;
         product.state = 1;
         res.state && this.post(product);
