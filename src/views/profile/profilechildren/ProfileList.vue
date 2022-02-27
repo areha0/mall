@@ -29,6 +29,9 @@ export default {
       switch (index) {
         case 0:
           this.$router.push("/address");
+          break;
+        case 1:
+          this.$router.push("/allorders");
       }
     },
   },
@@ -40,7 +43,7 @@ export default {
   padding: 0 10px;
   display: flex;
   flex-direction: column;
-  border-top: 10px solid rgba(200, 200, 200, 0.4);
+  border-top: 20px solid #fff;
 }
 .profile-list div {
   height: 40px;

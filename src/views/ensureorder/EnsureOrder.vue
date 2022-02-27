@@ -135,6 +135,9 @@ export default {
   },
   methods: {
     onClickLeft() {
+      // 如果直接返回的话,那就直接将数据库中{state:1, ordernum}的订单删除
+      // console.log(this.ordernum);
+      this.orderhttp3();
       this.$router.back();
     },
     editAddress() {
@@ -161,7 +164,16 @@ export default {
 
       console.log(this.order);
     },
-
+    orderhttp3() {
+      // 订单未提交,直接返回上一页, 向后端发送{username, ordernum},删除订单数据
+      let username = this.user.name;
+      let ordernum = this.ordernum;
+      let state = 3;
+      let params = { state, username, ordernum };
+      postOrder(params).then((res) => {
+        console.log(res);
+      });
+    },
     orderhttp2() {
       // 提交订单时, 此时的状态为待支付
       let state = 2;
@@ -188,7 +200,8 @@ export default {
     // 2. 删除购物车中的商品
     // ** 关键点在于知道是从详情页直接过来的还是从购物车过来的
     onSubmit() {
-      if (!this.address) {
+      console.log(this.address);
+      if (Object.keys(this.address) == 0) {
         Toast("请添加地址");
         return;
       }

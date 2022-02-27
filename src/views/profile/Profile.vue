@@ -10,7 +10,7 @@
         userInfo.phone
       }}</span>
     </user-info>
-    <profile-account />
+    <!-- <profile-account /> -->
     <profile-list :list="firstList" />
   </div>
 </template>
@@ -34,9 +34,6 @@ export default {
       firstList: [
         { icon: "", title: "我的地址" },
         { icon: "", title: "我的订单" },
-        { icon: "", title: "会员卡" },
-        { icon: "", title: "我的购物车" },
-        { icon: "", title: "下载购物车APP" },
       ],
     };
   },

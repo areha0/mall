@@ -158,5 +158,11 @@ export default {
     setordernum(state, value) {
         state.currentordernum = value;
         localStorage.setItem("ordernum", JSON.stringify(state.currentordernum))
+    },
+
+    // 设置所有的订单数据
+    setallorders(state, list) {
+        state.allorders = list;
+        localStorage.setItem("allorders", JSON.stringify(list))
     }
 }

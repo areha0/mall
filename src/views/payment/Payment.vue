@@ -1,5 +1,12 @@
 <template>
-  <div id="after-payment">支付后的页面</div>
+  <div id="after-payment">
+    <van-nav-bar title="支付详情" />
+    <div class="payment-state">{{ paymentstate }}</div>
+    <div class="button-show">
+      <button class="tohome" @click="tohome">返回首页</button>
+      <button class="toorder" @click="toorder">去订单页</button>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -7,6 +14,12 @@ import { mapState } from "vuex";
 import { postpayment } from "network/payment";
 export default {
   name: "Payment",
+  data() {
+    return {
+      code: -1, // 请求得到的code值,用于判定支付成功或失败
+      msg: "", //返回的信息
+    };
+  },
   created() {
     this.getData();
   },
@@ -15,6 +28,9 @@ export default {
       user: "userBaseInfo",
       ordernum: "currentordernum",
     }),
+    paymentstate() {
+      return this.code === 1 ? "支付失败" : "支付成功";
+    },
   },
   methods: {
     // 根据支付后页面的url值,获得订单的支付状态
@@ -40,9 +56,17 @@ export default {
       //#endregion
       postpayment({ out_trade_no, trade_no, username, ordernum }).then(
         (res) => {
-          console.log(res);
+          // console.log(res);
+          this.code = res.data.code;
+          this.msg = res.data.msg;
         }
       );
+    },
+    tohome() {
+      this.$router.push("/home");
+    },
+    toorder() {
+      console.log("去订单页");
     },
   },
 };
@@ -55,5 +79,30 @@ export default {
   height: 100vh;
   background-color: #fff;
   z-index: 14;
+}
+.payment-state {
+  width: 100%;
+  text-align: center;
+  font-size: 20px;
+  font-weight: 400;
+  margin-top: 40px;
+}
+
+.button-show {
+  display: flex;
+  margin-top: 20px;
+  justify-content: center;
+}
+
+.button-show button {
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  font-size: 14px;
+  color: #666;
+  padding: 5px 10px;
+}
+.toorder {
+  margin-left: 20px;
 }
 </style>

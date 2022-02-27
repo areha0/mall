@@ -17,6 +17,7 @@ const state = {
     addressList: JSON.parse(localStorage.getItem("addressList")) || [],//地址管理
     currentOrder: JSON.parse(localStorage.getItem("currentOrder")) || [],//当前订单
     currentordernum: JSON.parse(localStorage.getItem("ordernum")) || "",//当前订单号
+    allorders: JSON.parse(localStorage.getItem("allorders")) || [],//所有的订单
 };
 
 const store = new Vuex.Store({
