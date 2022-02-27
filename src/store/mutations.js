@@ -164,5 +164,21 @@ export default {
     setallorders(state, list) {
         state.allorders = list;
         localStorage.setItem("allorders", JSON.stringify(list))
+    },
+    // 删除指定的订单数据
+    removeorder(state, ordernum) {
+        state.allorders.forEach((item, index) => {
+            if (item.ordernum === ordernum) {
+                state.allorders.splice(index, 1);
+                return
+            }
+        });
+        localStorage.setItem("allorders", JSON.stringify(state.allorders))
+    },
+
+    // 设置当前支付后的订单,用于订单展示
+    setpayedorder(state, order) {
+        state.currentpayedorder = order;
+        localStorage.setItem("currentpayedorder", JSON.stringify(order))
     }
 }

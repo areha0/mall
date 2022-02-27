@@ -66,7 +66,7 @@ export default {
       this.$router.push("/home");
     },
     toorder() {
-      console.log("去订单页");
+      this.$router.push("/allorders");
     },
   },
 };

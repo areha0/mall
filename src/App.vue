@@ -1,6 +1,6 @@
 <template>
   <div id="app" class="main-flow">
-    <keep-alive exclude="Detail,Search,EnsureOrder">
+    <keep-alive exclude="Detail,Search,EnsureOrder,AllOrder,PayOrder">
       <router-view />
     </keep-alive>
     <main-tab-bar class="tab-bar"></main-tab-bar>

@@ -20,6 +20,23 @@ export default {
       return {}
     }
   },
+  // 已支付的订单
+  getpayorders(state) {
+    let list = [];
+    state.allorders.forEach(item => {
+      if (item.state === 3) list.push(item)
+    });
+    return list
+  },
+
+  // 未支付的订单
+  getnopayorders(state) {
+    let list = [];
+    state.allorders.forEach(item => {
+      if (item.state === 2) list.push(item)
+    });
+    return list
+  }
 
 
 }

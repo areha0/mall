@@ -182,7 +182,18 @@ export default {
       let paytype = this.currenttype;
       let goods = this.goodsname;
       let totleprice = (this.goodsprice / 100).toFixed(2);
-      let params = { state, ordernum, username, paytype, totleprice, goods };
+      let address = this.address;
+      let list = this.order; //因为可能有备注
+      let params = {
+        state,
+        ordernum,
+        username,
+        paytype,
+        totleprice,
+        goods,
+        address,
+        list,
+      };
       postOrder(params).then((res) => {
         // console.log(res.data.data.url);
         window.location.href = res.data.data.url;

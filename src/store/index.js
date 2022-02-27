@@ -15,9 +15,10 @@ const state = {
     currentSearchKey: "",//存储当前的搜索关键字,用于在展示搜索页面进行展示
     searchPosition: 0,//离开搜索页面时的位置
     addressList: JSON.parse(localStorage.getItem("addressList")) || [],//地址管理
-    currentOrder: JSON.parse(localStorage.getItem("currentOrder")) || [],//当前订单
+    currentOrder: JSON.parse(localStorage.getItem("currentOrder")) || [],//当前确认的订单
     currentordernum: JSON.parse(localStorage.getItem("ordernum")) || "",//当前订单号
     allorders: JSON.parse(localStorage.getItem("allorders")) || [],//所有的订单
+    currentpayedorder: JSON.parse(localStorage.getItem("currentpayedorder")) || [],//当前支付后的订单,可能支付失败 
 };
 
 const store = new Vuex.Store({

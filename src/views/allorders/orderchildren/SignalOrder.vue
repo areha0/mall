@@ -20,10 +20,16 @@
       <span class="label">总价</span>
     </div>
     <div class="button_show">
-      <van-button color="#ff6034" round plain class="pay"
+      <van-button
+        color="#ff6034"
+        round
+        plain
+        class="pay"
+        v-if="isshow"
+        @click="topay"
         ><span>去支付</span></van-button
       >
-      <van-button color="#666" round plain class="delete"
+      <van-button color="#666" round plain class="delete" @click.stop="toremove"
         ><span>删除订单</span></van-button
       >
     </div>
@@ -31,10 +37,48 @@
 </template>
 
 <script>
+import { mapState, mapGetters } from "vuex";
+import { postOrder } from "network/order";
 export default {
   name: "SignalOrder",
   props: {
     item: Object,
+  },
+  computed: {
+    ...mapState({
+      user: "userBaseInfo",
+      allorders: "allorders",
+    }),
+    isshow() {
+      return this.item.state === 2;
+    },
+  },
+  methods: {
+    topay() {
+      console.log(this.item);
+      let payurl = this.item.payurl;
+      // this.$emit("orderpay", payurl);
+      // console.log(payurl);
+      window.location.href = payurl;
+    },
+    toremove() {
+      // console.log("删除");
+      let ordernum = this.item.ordernum;
+      // this.$emit("orderremove", ordernum);
+      // 删除订单,状态可能是2,也可能是3,需要传入用户和订单号
+      // console.log(ordernum);
+      let username = this.user.name;
+      let state = 4;
+      let params = { username, state, ordernum };
+      // console.log(params);
+      // 删除vuex中的数据
+      this.$store.commit("removeorder", ordernum);
+
+      // 发送请求,删除数据
+      postOrder(params).then((res) => {
+        console.log(res);
+      });
+    },
   },
 };
 </script>
@@ -59,6 +103,9 @@ export default {
   flex-direction: row-reverse;
   padding: 5px 10px;
   align-items: center;
+}
+.button_show {
+  padding-bottom: 10px;
 }
 .label {
   font-size: 14px;
