@@ -13,7 +13,7 @@ vue2 + vue-router + vuex + vue-cli + axios + vant + node + express + mongoDB + f
 
 ### 项目运行
 在运行前端项目之前先将后端项目运行
-``
+```
 git clone https://github.com/areha0/mall.git
 
 cd mall
@@ -21,4 +21,58 @@ cd mall
 npm install
 
 npm run dev
-``
+```
+### 目录结构
+主要是对src目录下的文件简要说明
+页面文件夹下的 ...children文件夹中存放的是当前页面中的特定组件
+```F:.
+├─assets                          // 静态资源
+│  ├─css
+│  │  └─icomoon
+│  │      └─fonts
+│  └─img
+│      ├─common
+│      └─home
+├─commen
+├─components                      // 封装的一些通用组件
+│  ├─commen
+│  │  ├─backtop
+│  │  ├─navbar
+│  │  ├─scroll
+│  │  ├─swiper
+│  │  ├─tabbar
+│  │  └─toast
+│  └─content
+│      ├─goodslist
+│      ├─signform
+│      └─tabcontrol
+├─network                         // 对axios的二次封装
+│  └─user
+├─router                          // 路由管理以及前置导航守卫
+├─store                           // vuex的状态管理
+└─views
+    ├─address                     // 地址管理页面
+    │  └─addresschildren
+    ├─allorders                   // 订单管理页面
+    │  └─orderchildren
+    ├─category                    // 分类页面
+    │  └─catechildren
+    ├─detail                      // 详情页面
+    │  └─detailchildren
+    ├─ensureorder                 // 确认订单页面
+    │  └─ensurechildren 
+    ├─home                        // 主页面
+    │  └─homechildren
+    ├─login                       // 登录页面
+    │  └─loginchilds 
+    ├─payedorder                  // 订单详情页面
+    │  └─payorderchildren
+    ├─payment                     // 支付完成页面
+    ├─profile                     // 个人主页
+    │  └─profilechildren
+    ├─register                    // 注册页面
+    │  └─registerchildren
+    ├─search                      // 搜索结果页
+    └─shopcart                    // 购物车页面
+        └─cartchildren
+```
