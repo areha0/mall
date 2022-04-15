@@ -21,9 +21,6 @@ Vue.use(toast)
 // Vue.use(Mint);
 
 
-// Vue.prototype.HOST = 'http://localhost:3000'
-// Vue.prototype.$axios = axios;
-
 Vue.config.productionTip = false
 // 事件总线
 Vue.prototype.$bus = new Vue()

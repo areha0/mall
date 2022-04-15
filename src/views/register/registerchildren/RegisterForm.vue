@@ -38,7 +38,7 @@
 </template>
 
 <script>
-import { registerData } from "network/user/register";
+import { registerData } from "network/register";
 export default {
   name: "RegisterForm",
   data() {

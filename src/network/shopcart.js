@@ -1,7 +1,7 @@
-import { user } from "./user"
+import { post } from "./request"
 
 export function postShop(params) {
-  return user({
+  return post({
     url: '/shopcart',
     data: {
       params

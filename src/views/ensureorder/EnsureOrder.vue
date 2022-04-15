@@ -73,7 +73,7 @@ import OrderGood from "./ensurechildren/OrderGood";
 import OrderPay from "./ensurechildren/OrderPay";
 import Scroll from "components/commen/scroll/Scroll";
 import { postOrder } from "network/order";
-import { postShop } from "network/user/shopcart";
+import { postShop } from "network/shopcart";
 import { Toast } from "vant";
 export default {
   name: "EnsureOrder",

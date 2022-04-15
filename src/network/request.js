@@ -1,4 +1,6 @@
 import axios from "axios"
+import router from "../router/index"
+import { Notify } from 'vant';
 
 export function request(config) {
     const instance = axios.create({
@@ -20,6 +22,28 @@ export function post(config) {
         // 不使用methods时默认是get请求
         method: "post"
     });
+    instance1.interceptors.request.use(
+        (config) => {
+            if (!localStorage.getItem("userInfo")) {
+                localStorage.setItem("userInfo", "{}")
+            };
+            let token = JSON.parse(localStorage.getItem("userInfo")).token;
+            if (token) config.headers.Authorization = `Bearer ${token}`
+            return config
+        }
+    );
+    instance1.interceptors.response.use(
+        response => response,
+        error => {
+            console.dir(error);
+            let { status, data } = error.response;
+            if (status == 401) {
+                Notify({ type: "danger", message: data });
+                router.push("/login");
+
+            }
+        }
+    )
 
     return instance1(config)
 }

@@ -10,9 +10,9 @@ export function postOrder(params) {
 };
 
 export function getorders(username) {
-  return request({
+  return post({
     url: "order/allorders",
-    params: {
+    data: {
       username
     }
   })

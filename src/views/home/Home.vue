@@ -92,6 +92,8 @@ export default {
     this.getHomegoods("new");
   },
   mounted() {
+    // console.log(this.$route);
+    // console.log(this.$router);
     // 更新better-scroll
     const refresh = this.debounce(this.$refs.scroll.myScrollRefresh, 200);
     this.meatureOffsetTop = this.debounce(() => {

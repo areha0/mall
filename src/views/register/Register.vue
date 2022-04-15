@@ -1,7 +1,7 @@
 <template>
   <div id="register">
     <background />
-    <register-nav />
+    <register-nav @navback="navback" />
     <checked>
       <welcome slot="top" />
       <register-form slot="form" />
@@ -23,6 +23,11 @@ export default {
     RegisterNav,
     RegisterForm,
     Welcome,
+  },
+  methods: {
+    navback() {
+      this.$router.back();
+    },
   },
 };
 </script>

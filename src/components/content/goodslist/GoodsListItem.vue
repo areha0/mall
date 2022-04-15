@@ -43,6 +43,10 @@ export default {
         this.$route.path.indexOf("search") !== -1
       ) {
         this.$router.push("/detail/" + this.item.iid);
+        // this.$router.push({
+        //   name: "detail",
+        //   params: { goodsid: this.item.iid },
+        // });
       }
     },
   },

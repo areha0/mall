@@ -29,7 +29,7 @@
 </template>
 
 <script>
-import { postShop } from "network/user/shopcart";
+import { postShop } from "network/shopcart";
 import { Dialog } from "vant";
 export default {
   name: "CartListItem",

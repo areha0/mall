@@ -15,7 +15,7 @@
 </template>
 
 <script>
-import { postShop } from "network/user/shopcart";
+import { postShop } from "network/shopcart";
 import { mapGetters, mapState } from "vuex";
 import { postOrder } from "network/order";
 import { Toast } from "vant";

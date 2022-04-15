@@ -1,7 +1,7 @@
-import { user } from "./user"
+import { post } from "./request"
 
 export function loginData(params) {
-  return user({
+  return post({
     url: '/login',
     data: {
       params

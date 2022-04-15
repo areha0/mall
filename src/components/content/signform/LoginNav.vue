@@ -16,7 +16,7 @@ export default {
   },
   methods: {
     navback() {
-      this.$router.back();
+      this.$emit("navback");
     },
   },
 };

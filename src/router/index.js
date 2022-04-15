@@ -1,5 +1,6 @@
 import Vue from "vue";
-import Router from "vue-router"
+import Router from "vue-router";
+// import store from "../store/index";
 import { Notify } from 'vant';
 
 Vue.use(Router);
@@ -79,8 +80,11 @@ router.beforeEach((to, from, next) => {
   if (!localStorage.getItem("userInfo")) {
     localStorage.setItem("userInfo", "{}")
   };
-  let token = JSON.parse(localStorage.getItem("userInfo")).name;
+  let token = JSON.parse(localStorage.getItem("userInfo")).token;
+  // let user = store.state.userBaseInfo;
+  // let token = user.token || "";
   let disable = ["/login", "/register"]
+  // 如果已经登陆
   if (token && disable.indexOf(to.path) !== -1) {
     // 你要想跳出去就把你返回到首页
     // alert("您已经完成了登录");
@@ -89,6 +93,13 @@ router.beforeEach((to, from, next) => {
     next("/home")
     return
   };
+  // 如果没有登录,不能进入地址管理,订单管理,生成订单,订单支付完成页面
+  let autoRequired = ["/address", "/ensureorder", "/payment", "/allorders", "/payedorder"];
+  if (!token && autoRequired.indexOf(to.path) !== -1) {
+    Notify({ type: "warning", message: "请您先登录" });
+    next("/login");
+    return
+  }
   next()
 })
 

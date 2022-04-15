@@ -77,7 +77,7 @@ import DetailCommentInfo from "./detailchildren/DetailCommentInfo";
 import GoodsList from "components/content/goodslist/GoodsList";
 import BackTop from "components/commen/backtop/BackTop";
 import DetailBottomBar from "./detailchildren/DetailBottomBar";
-import { postShop } from "network/user/shopcart";
+import { postShop } from "network/shopcart";
 import { mapState } from "vuex";
 import { postOrder } from "network/order";
 import { Toast } from "vant";
@@ -141,6 +141,7 @@ export default {
     }),
   },
   mounted() {
+    console.log(this.$route);
     this.imgRefresh = this.debounce(
       this.$refs.detailScroll.myScrollRefresh,
       200
@@ -153,7 +154,7 @@ export default {
       this.detailTemplateTop.push(this.$refs.detailRecommend.$el.offsetTop);
       this.detailTemplateTop.push(Number.MAX_VALUE);
       // console.log(this.detailTemplateTop);
-    }, 200);
+    }, 20);
     this.$bus.$on("detailImageLoad", () => {
       this.imgRefresh();
     });
@@ -213,7 +214,7 @@ export default {
     detailNavbarClick(index) {
       this.$refs.detailScroll.myScrollTo(
         0,
-        -this.detailTemplateTop[index],
+        -this.detailTemplateTop[index] + 44,
         300
       );
     },

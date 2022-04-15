@@ -29,7 +29,7 @@
 </template>
 
 <script>
-import { loginData } from "network/user/login.js";
+import { loginData } from "network/login.js";
 export default {
   name: "FormData",
   data() {
@@ -63,6 +63,9 @@ export default {
             // };
             let { shopcart, name, phone, searchHistory, addressList } =
               userInfo;
+            let { token } = res.data;
+            // console.log(res.data);
+            // console.log(token);
             // let shopcart = userInfo.shopcart;
             // console.log(this.$store.state.userBaseInfo);
             // console.log(this.$store.state.cartList);
@@ -71,6 +74,7 @@ export default {
             let user = {
               name,
               phone,
+              token,
             };
             // let initKeys = userInfo.searchHistory;
             // console.log(initKeys);

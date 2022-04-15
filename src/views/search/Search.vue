@@ -85,6 +85,10 @@ export default {
   },
   created() {
     this.getSearchGoods();
+    this.$nextTick(() => {
+      let position = this.$store.state.searchPosition;
+      this.$refs.scroll.myScrollTo(0, position, -position * 0.1);
+    });
   },
   mounted() {
     const refresh = this.debounce(this.$refs.scroll.myScrollRefresh, 20);
@@ -93,9 +97,9 @@ export default {
       refresh();
       // this.$refs.scroll.myScrollRefresh();
     });
-    let position = this.$store.state.searchPosition;
+    // let position = this.$store.state.searchPosition;
     // console.log(position);
-    this.$refs.scroll.myScrollTo(0, position, -position * 0.1);
+    // this.$refs.scroll.myScrollTo(0, position, -position * 0.1);
   },
   beforeDestroy() {
     // console.log(this.currentPosition);

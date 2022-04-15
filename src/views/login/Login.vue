@@ -1,7 +1,7 @@
 <template>
   <div id="login">
     <background-img />
-    <login-nav />
+    <login-nav @navback="navback" />
     <check>
       <register slot="top"></register>
       <form-data slot="form"></form-data>
@@ -15,7 +15,7 @@ import LoginNav from "components/content/signform/LoginNav.vue";
 import Check from "components/content/signform/Check.vue";
 import Register from "views/login/loginchilds/Register.vue";
 import FormData from "views/login/loginchilds/FormData.vue";
-import { loginData } from "network/user/login.js";
+import { loginData } from "network/login.js";
 
 export default {
   name: "Login",
@@ -26,7 +26,11 @@ export default {
     Register,
     FormData,
   },
-  methods: {},
+  methods: {
+    navback() {
+      this.$router.push("/profile");
+    },
+  },
 };
 </script>
 
