@@ -1,6 +1,5 @@
 import Vue from "vue";
 import Router from "vue-router";
-// import store from "../store/index";
 import { Notify } from 'vant';
 
 Vue.use(Router);
@@ -81,15 +80,10 @@ router.beforeEach((to, from, next) => {
     localStorage.setItem("userInfo", "{}")
   };
   let token = JSON.parse(localStorage.getItem("userInfo")).token;
-  // let user = store.state.userBaseInfo;
-  // let token = user.token || "";
   let disable = ["/login", "/register"]
   // 如果已经登陆
   if (token && disable.indexOf(to.path) !== -1) {
-    // 你要想跳出去就把你返回到首页
-    // alert("您已经完成了登录");
     Notify({ type: 'warning', message: '您已经完成了登录' });
-    // console.log(from);
     next("/home")
     return
   };
