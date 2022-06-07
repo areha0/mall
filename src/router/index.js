@@ -17,55 +17,55 @@ const routes = [
   },
   {
     path: "/home",
-    component: () => import("views/home/Home")
+    component: () => import(/* webpackChunkName: "home"*/ "views/home/Home")
   },
   {
     path: "/category",
-    component: () => import("views/category/Category")
+    component: () => import(/* webpackChunkName: "category"*/ "views/category/Category")
   },
   {
     path: "/shopcart",
-    component: () => import("views/shopcart/Shopcart")
+    component: () => import(/* webpackChunkName: "shopcart"*/ "views/shopcart/Shopcart")
   },
   {
     path: "/profile",
-    component: () => import("views/profile/Profile")
+    component: () => import(/* webpackChunkName: "profile"*/ "views/profile/Profile")
   },
   {
     path: "/address",
-    component: () => import("views/address/Address")
+    component: () => import(/* webpackChunkName: "address"*/ "views/address/Address")
   },
   {
     path: "/detail/:goodsid",
-    component: () => import("../views/detail/Detail")
+    component: () => import(/* webpackChunkName: "detail"*/ "../views/detail/Detail")
   },
   {
     path: "/login",
-    component: () => import("views/login/Login")
+    component: () => import(/* webpackChunkName: "login"*/ "views/login/Login")
   },
   {
     path: "/register",
-    component: () => import("views/register/Register")
+    component: () => import(/* webpackChunkName: "register"*/ "views/register/Register")
   },
   {
     path: "/search",
-    component: () => import("views/search/Search")
+    component: () => import(/* webpackChunkName: "search"*/ "views/search/Search")
   },
   {
     path: "/ensureorder",
-    component: () => import("views/ensureorder/EnsureOrder")
+    component: () => import(/* webpackChunkName: "ensureorder"*/ "views/ensureorder/EnsureOrder")
   },
   {
     path: "/payment",
-    component: () => import("views/payment/Payment")
+    component: () => import(/* webpackChunkName: "payname"*/ "views/payment/Payment")
   },
   {
     path: "/allorders",
-    component: () => import("views/allorders/AllOrder")
+    component: () => import(/* webpackChunkName: "allorders"*/ "views/allorders/AllOrder")
   },
   {
     path: "/payedorder",
-    component: () => import("views/payedorder/PayOrder")
+    component: () => import(/* webpackChunkName: "payedorder"*/ "views/payedorder/PayOrder")
   }
 ]
 

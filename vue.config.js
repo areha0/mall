@@ -10,6 +10,11 @@ module.exports = {
         "commen": "@/commen"
       }
     },
+    output: {
+      filename: './js/[name].chunk.js',
+      // chunkFilename: './js/[name].[chunkhash:8].js'
+      chunkFilename: './js/[name].chunk.js'
+    },
   },
   productionSourceMap: false,
   // publicPath: './'
@@ -23,5 +28,5 @@ module.exports = {
         }
       }
     }
-  }
+  },
 }
