@@ -19,7 +19,7 @@ Vue.use(ElementUI);
 FastClick.attach(document.body)
 Vue.use(toast)
 // Vue.use(Mint);
-
+console.log('nihaoa, 我只是来试验一下分支的拉取和合并');
 
 Vue.config.productionTip = false
 // 事件总线
